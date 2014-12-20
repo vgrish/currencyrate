@@ -12,6 +12,12 @@ abstract class currencyrateMainController extends modExtraManagerController {
 	 * @return void
 	 */
 	public function initialize() {
+		$version = $this->modx->getVersionData();
+		$modx23 = !empty($version) && version_compare($version['full_version'], '2.3.0', '>=');
+		if (!$modx23) {
+			$this->addCss(MODX_ASSETS_URL . 'components/currencyrate/css/mgr/font-awesome.min.css');
+		}
+
 		$corePath = $this->modx->getOption('currencyrate_core_path', null, $this->modx->getOption('core_path') . 'components/currencyrate/');
 		require_once $corePath . 'model/currencyrate/currencyrate.class.php';
 
@@ -20,6 +26,7 @@ abstract class currencyrateMainController extends modExtraManagerController {
 		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/currencyrate.js');
 		$this->addHtml('
 		<script type="text/javascript">
+			MODx.modx23 = ' . (int)$modx23 . ';
 			currencyrate.config = ' . $this->modx->toJSON($this->currencyrate->config) . ';
 			currencyrate.config.connector_url = "' . $this->currencyrate->config['connectorUrl'] . '";
 		</script>
