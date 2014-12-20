@@ -13,10 +13,10 @@ currencyrate.grid.List = function (config) {
             action: 'mgr/valute/getlist'
         },
         listeners: {
-            rowDblClick: function (grid, rowIndex, e) {
-                var row = grid.store.getAt(rowIndex);
-                this.updateItem(grid, e, row);
-            }
+/*            rowDblClick: function (grid, rowIndex, e) {
+             var row = grid.store.getAt(rowIndex);
+             this.updateItem(grid, e, row);
+             }*/
         },
         viewConfig: {
             forceFit: true,
@@ -218,33 +218,27 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
     },
 
     getTopBar: function (config) {
-        return [{
-            text: '<i class="icon icon-plus">&nbsp;' + _('currencyrate_valute_create'),
-            handler: this.createItem,
-            scope: this
-        }, '->', {
-            xtype: 'textfield',
-            name: 'query',
-            width: 200,
-            id: config.id + '-search-field',
-            emptyText: _('currencyrate_grid_search'),
-            listeners: {
-                render: {
-                    fn: function (tf) {
-                        tf.getEl().addKeyListener(Ext.EventObject.ENTER, function () {
-                            this._doSearch(tf);
-                        }, this);
-                    }, scope: this
-                }
+        return [
+            {
+                text: '<i class="' + (MODx.modx23 ? 'icon icon-refresh' : 'fa fa-refresh') + '"></i> ' + _('cr_valute_index_create'),
+                handler: this.indexCreate(),
+                scope: this
             }
-        }, {
-            xtype: 'button',
-            id: config.id + '-search-clear',
-            text: '<i class="icon icon-times"></i>',
-            listeners: {
-                click: {fn: this._clearSearch, scope: this}
+            , '-',
+            {
+                text: '<i class="' + (MODx.modx23 ? 'icon icon-trash-o' : 'fa fa-trash-o') + '"></i> ' + _('cr_valute_index_clear'),
+                handler: this.indexClear(),
+                scope: this
             }
-        }];
+        ];
+
+    },
+
+    indexCreate: function () {
+
+    },
+    indexClear: function () {
+
     },
 
     onClick: function (e) {

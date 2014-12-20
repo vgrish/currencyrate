@@ -8,6 +8,10 @@ $_lang['currencyrate_intro_msg'] = 'Информация о курсах ино�
 
 $_lang['currencyrate_items'] = 'Курс валют';
 
+// buttons
+$_lang['cr_valute_index_create'] = 'Обновить курс';
+$_lang['cr_valute_index_create'] = 'Очистить курс';
+
 $_lang['currencyrate_item_id'] = 'Id';
 $_lang['currencyrate_item_name'] = 'Название';
 $_lang['currencyrate_item_description'] = 'Описание';
