@@ -6,15 +6,16 @@ $tmp = array(
 
 
 	'url' => array(
-		'value' => 'http://www.cbr.ru/scripts/XML_daily.asp',
+		'value' => 'http://www.cbr.ru/scripts/XML_daily.asp?date_req=',
 		'xtype' => 'textfield',
 		'area' => 'currencyrate_main',
 	),
-	'timeout' => array(
+	
+/*	'timeout' => array(
 		'value' => '2',
 		'xtype' => 'numberfield',
 		'area' => 'currencyrate_main',
-	),
+	),*/
 
 
 

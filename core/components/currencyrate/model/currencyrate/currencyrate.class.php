@@ -11,6 +11,8 @@ class currencyrate
 	public $cache = null;
 	public $config = array();
 
+	protected $list = array();
+
 	/**
 	 * @param modX $modx
 	 * @param array $config
@@ -65,22 +67,72 @@ class currencyrate
 		return $option;
 	}
 
-	public function getRate($charcode = '')
+	/**
+	 * формируем массив валют
+	 *
+	 * @return bool
+	 */
+	public function loadRate()
 	{
-		$url = $this->modx->getOption('currencyrate_url', '', 'http://www.cbr.ru/scripts/XML_daily.asp');
-		$request = urlencode($url);
-		if (function_exists('curl_init')) {
-			$timeout = $this->modx->getOption('currencyrate_timeout', '', 2);
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $request);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-			$result = curl_exec($ch);
-		} else {
-			$result = file_get_contents($request);
-		}
+		$xml = new DOMDocument();
+		$url = $this->modx->getOption('currencyrate_url', '', 'http://www.cbr.ru/scripts/XML_daily.asp?date_req=') . date('d/m/Y');
+		/*		if (function_exists('curl_init')) {
+					$timeout = $this->modx->getOption('currencyrate_timeout', '', 5);
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, $request);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);
+					curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+					$result = curl_exec($ch);
+					curl_close ($ch);
+				} else {
+					$result = file_get_contents($request);
+				}*/
+		$this->modx->log(1, print_r($url , 1));
 
-		return $result;
+		if (@$xml->load($url)) {
+			$this->list = array();
+			$root = $xml->documentElement;
+			$items = $root->getElementsByTagName('Valute');
+
+			foreach ($items as $item) {
+				$numcode = $item->getElementsByTagName('NumCode')->item(0)->nodeValue;
+				$charcode = $item->getElementsByTagName('CharCode')->item(0)->nodeValue;
+				$nominal = $item->getElementsByTagName('Nominal')->item(0)->nodeValue;
+				$name = $item->getElementsByTagName('Name')->item(0)->nodeValue;
+				$value = $item->getElementsByTagName('Value')->item(0)->nodeValue;
+				$value = floatval(str_replace(',', '.', $value));
+
+				$this->list[] = array(
+					'numcode' => $numcode,
+					'charcode' => $charcode,
+					'nominal' => $nominal,
+					'name' => $name,
+					'value' => $value,
+				);
+			}
+
+
+			$this->modx->log(1, print_r($this->list , 1));
+
+			return true;
+		} else
+			return false;
+	}
+
+	public function rateIntoDb()
+	{
+		if ($this->loadRate()) {
+
+			$this->modx->log(1, print_r('run' , 1));
+
+			foreach($this->list as $item) {
+
+				$this->modx->log(1, print_r($item , 1));
+			}
+		}
+		else {
+			$this->modx->log(1, print_r('NO run' , 1));
+		}
 
 	}
 
