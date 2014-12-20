@@ -182,39 +182,65 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
     },
 
     getFields: function (config) {
-        return ['id', 'name', 'description', 'active', 'actions'];
+        return ['id', 'charcode', 'name', 'value', 'nominal', 'rate', 'valuerate'];
     },
 
     getColumns: function (config) {
         return [{
-            header: _('currencyrate_valute_id'),
+            header: _('cr_valute_id'),
             dataIndex: 'id',
             sortable: true,
-            width: 70
+            width: 50
         }, {
-            header: _('currencyrate_valute_name'),
-            dataIndex: 'name',
-            sortable: true,
-            width: 200,
-        }, {
-            header: _('currencyrate_valute_description'),
-            dataIndex: 'description',
-            sortable: false,
-            width: 250,
-        }, {
-            header: _('currencyrate_valute_active'),
-            dataIndex: 'active',
-            renderer: currencyrate.utils.renderBoolean,
+            header: _('cr_valute_charcode'),
+            dataIndex: 'charcode',
             sortable: true,
             width: 100,
         }, {
-            header: _('currencyrate_grid_actions'),
+            header: _('cr_valute_name'),
+            dataIndex: 'name',
+            sortable: false,
+            width: 250,
+        }, {
+            header: _('cr_valute_value'),
+            dataIndex: 'value',
+            sortable: true,
+            width: 150,
+        }, {
+            header: _('cr_valute_nominal'),
+            dataIndex: 'nominal',
+            sortable: true,
+            width: 150,
+        }, {
+            header: _('cr_valute_rate'),
+            dataIndex: 'rate',
+            sortable: true,
+            width: 150,
+        }, {
+            header: _('cr_valute_valuerate'),
+            dataIndex: 'valuerate',
+            sortable: true,
+            width: 150,
+        }
+
+
+        /*
+         {
+         header: _('cr_valute_value'),
+         dataIndex: 'active',
+         renderer: currencyrate.utils.renderBoolean,
+         sortable: true,
+         width: 100,
+         }
+
+        {
+            header: _('cr_valute_nominal'),
             dataIndex: 'actions',
             renderer: currencyrate.utils.renderActions,
             sortable: false,
             width: 100,
             id: 'actions'
-        }];
+        }*/];
     },
 
     getTopBar: function (config) {

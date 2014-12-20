@@ -13,7 +13,15 @@ $_lang['cr_valute_index_create'] = 'Обновить курс';
 $_lang['cr_valute_index_clear'] = 'Очистить курс';
 
 
-$_lang['currencyrate_item_id'] = 'Id';
+$_lang['cr_valute_id'] = 'Id';
+$_lang['cr_valute_charcode'] = 'Код';
+$_lang['cr_valute_name'] = 'Наименование';
+$_lang['cr_valute_value'] = 'Значение';
+$_lang['cr_valute_nominal'] = 'Номинал';
+$_lang['cr_valute_rate'] = 'Коэф-т';
+$_lang['cr_valute_valuerate'] = 'Значение';
+
+
 $_lang['currencyrate_item_name'] = 'Название';
 $_lang['currencyrate_item_description'] = 'Описание';
 $_lang['currencyrate_item_active'] = 'Активно';

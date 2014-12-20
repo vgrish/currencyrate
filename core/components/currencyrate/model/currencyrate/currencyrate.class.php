@@ -87,7 +87,7 @@ class currencyrate
 				} else {
 					$result = file_get_contents($request);
 				}*/
-		$this->modx->log(1, print_r($url , 1));
+		//$this->modx->log(1, print_r($url , 1));
 
 		if (@$xml->load($url)) {
 			$this->list = array();
@@ -110,30 +110,34 @@ class currencyrate
 					'value' => $value,
 				);
 			}
-
-
-			$this->modx->log(1, print_r($this->list , 1));
-
 			return true;
 		} else
 			return false;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function rateIntoDb()
 	{
 		if ($this->loadRate()) {
-
-			$this->modx->log(1, print_r('run' , 1));
-
 			foreach($this->list as $item) {
 
 				$this->modx->log(1, print_r($item , 1));
-			}
-		}
-		else {
-			$this->modx->log(1, print_r('NO run' , 1));
-		}
 
+				if(!$itemFromDb = $this->modx->getObject('CRlist', array('numcode' => $item['numcode']))) {
+					$itemFromDb = $this->modx->newObject('CRlist');
+				}
+				$itemFromDb->fromArray(array_merge($item, array(
+					'valuerate' => ($item['value'] / $item['nominal']) ,
+					'rate' => $itemFromDb->get('rate'),
+				)));
+				if(!$itemFromDb->save()) $this->modx->log(1, print_r('[CR:Error] save to db for charcode - '.$item['charcode'] , 1));
+			}
+			return true;
+		}
+		$this->modx->log(1, print_r('[CR:Error] NO loadRate()', 1));
+		return false;
 	}
 
 }
