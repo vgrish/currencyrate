@@ -1,8 +1,8 @@
 <?php
 
-$xpdo_meta_map = array(
-	'xPDOSimpleObject' =>
-		array(
-			0 => 'currencyrateItem',
-		),
+$xpdo_meta_map = array (
+  'xPDOSimpleObject' => 
+  array (
+    0 => 'CRlist',
+  ),
 );
