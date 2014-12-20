@@ -10,7 +10,11 @@ $tmp = array(
 		'xtype' => 'textfield',
 		'area' => 'currencyrate_main',
 	),
-
+	'timeout' => array(
+		'value' => '2',
+		'xtype' => 'numberfield',
+		'area' => 'currencyrate_main',
+	),
 
 
 
