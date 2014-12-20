@@ -221,7 +221,10 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
         return [
             {
                 text: '<i class="' + (MODx.modx23 ? 'icon icon-refresh' : 'fa fa-refresh') + '"></i> ' + _('cr_valute_index_create'),
-                handler: this.indexCreate(),
+                //handler: this.indexCreate(),
+                handler: function() {
+                    this.indexCreate();
+                },
                 scope: this
             }
             , '-',
@@ -235,11 +238,33 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
     },
 
     indexCreate: function () {
+        var el = this.getEl();
 
+/*
+        console.log(el);
+        return;
+*/
+
+        el.mask(_('loading'),'x-mask-loading');
+        MODx.Ajax.request({
+            url: this.config.url,
+            params: {
+                action: 'mgr/index/create'
+            },
+            listeners: {
+                success: {fn:function(r) {this.refresh();}, scope:this}
+            }
+        })
     },
+
+
+
+
     indexClear: function () {
 
     },
+
+
 
     onClick: function (e) {
         var elem = e.getTarget();

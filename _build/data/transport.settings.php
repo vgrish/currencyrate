@@ -5,6 +5,13 @@ $settings = array();
 $tmp = array(
 
 
+	'url' => array(
+		'value' => 'http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx?WSDL',
+		'xtype' => 'textfield',
+		'area' => 'currencyrate_main',
+	),
+
+
 
 
 	//временные
