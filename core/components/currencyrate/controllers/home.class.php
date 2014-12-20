@@ -39,7 +39,7 @@ class currencyrateHomeManagerController extends currencyrateMainController {
 		Ext.onReady(function() {
 			MODx.load({ xtype: "currencyrate-page-home"});
 		});
-		</script>'); 
+		</script>');
 	}
 
 
