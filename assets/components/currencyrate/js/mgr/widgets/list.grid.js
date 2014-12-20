@@ -272,19 +272,7 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
         }
 
         return ids;
-    },
-
-    _doSearch: function (tf, nv, ov) {
-        this.getStore().baseParams.query = tf.getValue();
-        this.getBottomToolbar().changePage(1);
-        this.refresh();
-    },
-
-    _clearSearch: function (btn, e) {
-        this.getStore().baseParams.query = '';
-        Ext.getCmp(this.config.id + '-search-field').setValue('');
-        this.getBottomToolbar().changePage(1);
-        this.refresh();
     }
+
 });
 Ext.reg('currencyrate-grid-list', currencyrate.grid.List);
