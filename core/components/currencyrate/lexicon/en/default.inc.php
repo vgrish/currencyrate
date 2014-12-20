@@ -1,7 +1,7 @@
 <?php
 include_once 'setting.inc.php';
 
-$_lang['currencyrate'] = 'currencyrate';
+$_lang['currencyrate'] = 'CurrencyRate';
 $_lang['currencyrate_menu_desc'] = 'A sample Extra to develop from.';
 $_lang['currencyrate_intro_msg'] = 'You can select multiple items by holding Shift or Ctrl button.';
 

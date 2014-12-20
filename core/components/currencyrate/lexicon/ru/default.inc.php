@@ -1,12 +1,13 @@
 <?php
 include_once 'setting.inc.php';
 
-$_lang['currencyrate'] = 'Курс валют';
+$_lang['currencyrate'] = 'CurrencyRate';
 $_lang['currencyrate_menu_desc'] = 'Официальные курсы иностранных валют по отношению к рублю.';
 
-$_lang['currencyrate_intro_msg'] = 'Вы можете выделять сразу несколько предметов при помощи Shift или Ctrl.';
+$_lang['currencyrate_intro_msg'] = 'Информация о курсах иностранных валют по отношению к рублю, опубликованная на официальном сайте Банка России в сети Интернет, является официальной информацией Банка России и не требует дополнительного письменного подтверждения от Банка России.';
 
-$_lang['currencyrate_items'] = 'Предметы';
+$_lang['currencyrate_items'] = 'Курс валют';
+
 $_lang['currencyrate_item_id'] = 'Id';
 $_lang['currencyrate_item_name'] = 'Название';
 $_lang['currencyrate_item_description'] = 'Описание';

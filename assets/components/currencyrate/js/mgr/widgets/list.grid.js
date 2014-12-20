@@ -55,7 +55,7 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
         this.addContextMenuItem(menu);
     },
 
-    createItem: function (btn, e) {
+    /*createItem: function (btn, e) {
         var w = MODx.load({
             xtype: 'currencyrate-valute-window-create',
             id: Ext.id(),
@@ -70,9 +70,9 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
         w.reset();
         w.setValues({active: true});
         w.show(e.target);
-    },
+    },*/
 
-    updateItem: function (btn, e, row) {
+/*    updateItem: function (btn, e, row) {
         if (typeof(row) != 'undefined') {
             this.menu.record = row.data;
         }
@@ -109,7 +109,7 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
                 }
             }
         });
-    },
+    },*/
 
     removeItem: function (act, btn, e) {
         var ids = this._getSelectedIds();

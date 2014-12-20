@@ -26,7 +26,7 @@ currencyrate.panel.Home = function (config) {
 					html: _('currencyrate_intro_msg'),
 					cls: 'panel-desc',
 				}, {
-					xtype: 'currencyrate-grid-items',
+					xtype: 'currencyrate-grid-list',
 					cls: 'main-wrapper',
 				}]
 			}]
