@@ -140,4 +140,41 @@ class currencyrate
 		return false;
 	}
 
+
+	/**
+	 * @param string $message
+	 * @param array $data
+	 * @param array $placeholders
+	 * @return array|string
+	 */
+	public function error($message = '', $data = array(), $placeholders = array())
+	{
+		$response = array(
+			'success' => false,
+			'message' => $this->modx->lexicon($message, $placeholders),
+			'data' => $data,
+		);
+		return $this->config['json_response']
+			? $this->modx->toJSON($response)
+			: $response;
+	}
+
+	/**
+	 * @param string $message
+	 * @param array $data
+	 * @param array $placeholders
+	 * @return array|string
+	 */
+	public function success($message = '', $data = array(), $placeholders = array())
+	{
+		$response = array(
+			'success' => true,
+			'message' => $this->modx->lexicon($message, $placeholders),
+			'data' => $data,
+		);
+		return $this->config['json_response']
+			? $this->modx->toJSON($response)
+			: $response;
+	}
+
 }

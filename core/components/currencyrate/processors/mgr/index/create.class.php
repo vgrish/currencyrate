@@ -3,28 +3,20 @@
 /**
  * Create an Item
  */
-class currencyrateItemCreateProcessor extends modObjectCreateProcessor {
-	public $objectType = 'currencyrateItem';
-	public $classKey = 'currencyrateItem';
+class CRCreateProcessor extends modObjectCreateProcessor {
+	public $objectType = 'CRlist';
+	public $classKey = 'CRlist';
 	public $languageTopics = array('currencyrate');
 	//public $permission = 'create';
 
+	public function process() {
 
-	/**
-	 * @return bool
-	 */
-	public function beforeSet() {
-		$name = trim($this->getProperty('name'));
-		if (empty($name)) {
-			$this->modx->error->addField('name', $this->modx->lexicon('currencyrate_item_err_name'));
-		}
-		elseif ($this->modx->getCount($this->classKey, array('name' => $name))) {
-			$this->modx->error->addField('name', $this->modx->lexicon('currencyrate_item_err_ae'));
-		}
+		$this->modx->log(1, print_r('deferfe' , 1));
 
-		return parent::beforeSet();
+		if (!$this->modx->currencyrate->rateIntoDb()) return $this->modx->currencyrate->error('pas_save_setting_err');
+		return $this->modx->currencyrate->success('');
 	}
 
 }
 
-return 'currencyrateItemCreateProcessor';
+return 'CRCreateProcessor';

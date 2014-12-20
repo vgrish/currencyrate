@@ -10,7 +10,7 @@ $_lang['cr_list'] = 'Курс валют';
 
 // buttons
 $_lang['cr_valute_index_create'] = 'Обновить курс';
-$_lang['cr_valute_index_clear'] = 'Очистить курс';
+$_lang['cr_valute_index_clear'] = 'Очистить';
 
 
 $_lang['cr_valute_id'] = 'Id';
