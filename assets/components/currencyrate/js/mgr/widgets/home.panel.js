@@ -20,10 +20,10 @@ currencyrate.panel.Home = function (config) {
 			border: true,
 			hideMode: 'offsets',
 			items: [{
-				title: _('currencyrate_items'),
+				title: _('cr_list'),
 				layout: 'anchor',
 				items: [{
-					html: _('currencyrate_intro_msg'),
+					html: _('cr_intro_msg'),
 					cls: 'panel-desc',
 				}, {
 					xtype: 'currencyrate-grid-list',
