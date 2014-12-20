@@ -1,8 +1,9 @@
 <?php
 include_once 'setting.inc.php';
 
-$_lang['currencyrate'] = 'currencyrate';
-$_lang['currencyrate_menu_desc'] = 'Пример расширения для разработки.';
+$_lang['currencyrate'] = 'Курс валют';
+$_lang['currencyrate_menu_desc'] = 'Официальные курсы иностранных валют по отношению к рублю.';
+
 $_lang['currencyrate_intro_msg'] = 'Вы можете выделять сразу несколько предметов при помощи Shift или Ctrl.';
 
 $_lang['currencyrate_items'] = 'Предметы';
