@@ -13,6 +13,9 @@ abstract class currencyrateMainController extends modExtraManagerController {
 	 */
 	public function initialize() {
 		$version = $this->modx->getVersionData();
+
+		print_r($version);
+
 		$modx23 = !empty($version) && version_compare($version['full_version'], '2.3.0', '>=');
 		if (!$modx23) {
 			$this->addCss(MODX_ASSETS_URL . 'components/currencyrate/css/mgr/font-awesome.min.css');
