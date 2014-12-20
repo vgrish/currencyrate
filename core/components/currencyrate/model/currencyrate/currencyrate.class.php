@@ -3,7 +3,8 @@
 /**
  * The base class for currencyrate.
  */
-class currencyrate {
+class currencyrate
+{
 	/* @var modX $modx */
 	public $modx;
 	public $namespace = 'currencyrate';
@@ -14,7 +15,8 @@ class currencyrate {
 	 * @param modX $modx
 	 * @param array $config
 	 */
-	function __construct(modX &$modx, array $config = array()) {
+	function __construct(modX &$modx, array $config = array())
+	{
 		$this->modx =& $modx;
 
 		$this->namespace = $this->getOption('currencyrate', $config, 'currencyrate');
@@ -63,8 +65,22 @@ class currencyrate {
 		return $option;
 	}
 
-	public function getRate($charcode = '') {
+	public function getRate($charcode = '')
+	{
+		$url = $this->modx->getOption('currencyrate_url', '', 'http://www.cbr.ru/scripts/XML_daily.asp');
+		$request = urlencode($url);
+		if (function_exists('curl_init')) {
+			$timeout = $this->modx->getOption('currencyrate_timeout', '', 2);
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $request);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+			$result = curl_exec($ch);
+		} else {
+			$result = file_get_contents($request);
+		}
 
+		return $result;
 
 	}
 

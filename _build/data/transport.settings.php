@@ -6,7 +6,7 @@ $tmp = array(
 
 
 	'url' => array(
-		'value' => 'http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx?WSDL',
+		'value' => 'http://www.cbr.ru/scripts/XML_daily.asp',
 		'xtype' => 'textfield',
 		'area' => 'currencyrate_main',
 	),
