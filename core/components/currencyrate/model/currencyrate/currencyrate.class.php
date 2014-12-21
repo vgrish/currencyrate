@@ -40,7 +40,9 @@ class currencyrate
 			'templatesPath' => $corePath . 'elements/templates/',
 			'chunkSuffix' => '.chunk.tpl',
 			'snippetsPath' => $corePath . 'elements/snippets/',
-			'processorsPath' => $corePath . 'processors/'
+			'processorsPath' => $corePath . 'processors/',
+
+			'last_date' => $this->modx->getOption('currencyrate_last_date', $config, ''),
 		), $config);
 
 		$this->modx->addPackage('currencyrate', $this->config['modelPath']);

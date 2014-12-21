@@ -1,14 +1,9 @@
 currencyrate.panel.Home = function (config) {
 	config = config || {};
+    var last_date = (currencyrate.config.last_date !== '') ? '<p>' +  _('cr_last_date_msg') + currencyrate.config.last_date + '</p>' : '';
 	Ext.apply(config, {
 		baseCls: 'modx-formpanel',
 		layout: 'anchor',
-		/*
-		 stateful: true,
-		 stateId: 'currencyrate-panel-home',
-		 stateEvents: ['tabchange'],
-		 getState:function() {return {activeTab:this.items.indexOf(this.getActiveTab())};},
-		 */
 		hideMode: 'offsets',
 		items: [{
 			html: '<h2>' + _('currencyrate') + '</h2>',
@@ -23,7 +18,7 @@ currencyrate.panel.Home = function (config) {
 				title: _('cr_list'),
 				layout: 'anchor',
 				items: [{
-					html: _('cr_intro_msg'),
+					html: _('cr_intro_msg') + last_date,
 					cls: 'panel-desc',
 				}, {
 					xtype: 'currencyrate-grid-list',
