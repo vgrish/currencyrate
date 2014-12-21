@@ -76,19 +76,6 @@ class currencyrate
 	{
 		$xml = new DOMDocument();
 		$url = $this->modx->getOption('currencyrate_url', '', 'http://www.cbr.ru/scripts/XML_daily.asp?date_req=') . date('d/m/Y');
-		/*		if (function_exists('curl_init')) {
-					$timeout = $this->modx->getOption('currencyrate_timeout', '', 5);
-					$ch = curl_init();
-					curl_setopt($ch, CURLOPT_URL, $request);
-					curl_setopt($ch, CURLOPT_RETURNTRANSFER, 0);
-					curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-					$result = curl_exec($ch);
-					curl_close ($ch);
-				} else {
-					$result = file_get_contents($request);
-				}*/
-		//$this->modx->log(1, print_r($url , 1));
-
 		if (@$xml->load($url)) {
 			$this->list = array();
 			$root = $xml->documentElement;
@@ -122,16 +109,12 @@ class currencyrate
 	{
 		if ($this->loadRate()) {
 			foreach($this->list as $item) {
-
-				$this->modx->log(1, print_r($item , 1));
-
 				if(!$itemFromDb = $this->modx->getObject('CRlist', array('numcode' => $item['numcode']))) {
 					$itemFromDb = $this->modx->newObject('CRlist');
 				}
-				$itemFromDb->fromArray(array_merge($item, array(
-					'valuerate' => ($item['value'] / $item['nominal']) ,
-					'rate' => $itemFromDb->get('rate'),
-				)));
+				$item['rate'] = $itemFromDb->get('rate');
+				$item = $this->calcData($item);
+				$itemFromDb->fromArray($item);
 				if(!$itemFromDb->save()) $this->modx->log(1, print_r('[CR:Error] save to db for charcode - '.$item['charcode'] , 1));
 			}
 			return true;
@@ -141,11 +124,33 @@ class currencyrate
 	}
 
 
-	public function calcValueRate($data = array()) {
+	/**
+	 * @param array $data
+	 * @return array
+	 */
+	public function calcData($data = array()) {
+		if(empty($data['nominal'])) $data['nominal'] = 1;
+		$data['valuerate'] = round(($data['value'] / $data['nominal']), 4);
+		$valuerate = $this->calcValueRate($data['valuerate'], $data['rate']);
+		if ((float)$valuerate == (float)$data['valuerate']) {
+			$data['rate'] = '';
+		}
+		$data['valuerate'] = $valuerate;
+		return $data;
+	}
 
-		$rate = $data['rate'];
-
-		$result = ($data['value'] / $data['nominal']) * $rate;
+	/**
+	 * @param $value
+	 * @param $rate
+	 * @return float
+	 */
+	public function calcValueRate($value, $rate) {
+		if (preg_match('/%$/', $rate)) {
+			$rate = str_replace('%', '', $rate);
+			$rate = $value / 100 * $rate;
+		}
+		$value += $rate;
+		return round($value, 4);
 	}
 
 	/**

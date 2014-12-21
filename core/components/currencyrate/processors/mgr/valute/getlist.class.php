@@ -10,24 +10,6 @@ class CRGetListProcessor extends modObjectGetListProcessor {
 	public $defaultSortDirection = 'ASC';
 
 	/**
-	 * @param xPDOQuery $c
-	 *
-	 * @return xPDOQuery
-	 */
-/*	public function prepareQueryBeforeCount(xPDOQuery $c) {
-		$query = trim($this->getProperty('query'));
-		if ($query) {
-			$c->where(array(
-				'name:LIKE' => "%{$query}%",
-				'OR:description:LIKE' => "%{$query}%",
-			));
-		}
-
-		return $c;
-	}*/
-
-
-	/**
 	 * @param xPDOObject $object
 	 *
 	 * @return array
@@ -39,5 +21,4 @@ class CRGetListProcessor extends modObjectGetListProcessor {
 	}
 
 }
-
 return 'CRGetListProcessor';

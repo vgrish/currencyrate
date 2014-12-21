@@ -32,5 +32,4 @@ class CRRemoveAllProcessor extends modObjectRemoveProcessor {
 		$this->modx->logManagerAction($this->objectType.'_truncate',$this->classKey, 0);
 	}
 }
-
 return 'CRRemoveAllProcessor';

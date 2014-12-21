@@ -32,7 +32,6 @@ class currencyrateHomeManagerController extends currencyrateMainController {
 		$this->addCss($this->currencyrate->config['cssUrl'] . 'mgr/bootstrap.buttons.css');
 		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/misc/utils.js');
 		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/widgets/list.grid.js');
-		//$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/widgets/items.windows.js');
 		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/widgets/home.panel.js');
 		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/sections/home.js');
 		$this->addHtml('<script type="text/javascript">

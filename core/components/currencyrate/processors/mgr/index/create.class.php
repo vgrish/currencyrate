@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Create an Item
+ * Create an Index
  */
 class CRCreateProcessor extends modObjectCreateProcessor {
 	public $objectType = 'CRlist';
@@ -10,13 +10,9 @@ class CRCreateProcessor extends modObjectCreateProcessor {
 	//public $permission = 'create';
 
 	public function process() {
-
-		$this->modx->log(1, print_r('deferfe' , 1));
-
 		if (!$this->modx->currencyrate->rateIntoDb()) return $this->modx->currencyrate->error('pas_save_setting_err');
 		return $this->modx->currencyrate->success('');
 	}
 
 }
-
 return 'CRCreateProcessor';
