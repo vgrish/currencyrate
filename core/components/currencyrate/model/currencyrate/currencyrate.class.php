@@ -42,7 +42,7 @@ class currencyrate
 			'snippetsPath' => $corePath . 'elements/snippets/',
 			'processorsPath' => $corePath . 'processors/',
 
-			'last_date' => $this->modx->getOption('currencyrate_last_date', $config, ''),
+			'last_date' => $this->modx->getOption('currencyrate_last_date'),
 		), $config);
 
 		$this->modx->addPackage('currencyrate', $this->config['modelPath']);
