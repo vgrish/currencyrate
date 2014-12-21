@@ -14,9 +14,14 @@ $tmp = array(
 		'value' => 'http://www.cbr.ru/scripts/XML_daily.asp?date_req=',
 		'area' => 'currencyrate_main',
 	),
+	'last_date' => array(
+		'xtype' => 'textfield',
+		'value' => '',
+		'area' => 'currencyrate_main',
+	),
 
 	//временные
-/*
+
 			'assets_path' => array(
 				'xtype' => 'textfield',
 				'value' => '{base_path}currencyrate/assets/components/currencyrate/',
@@ -32,7 +37,7 @@ $tmp = array(
 				'value' => '{base_path}currencyrate/core/components/currencyrate/',
 				'area' => 'currencyrate_temp',
 			),
-*/
+
 
 	//временные
 

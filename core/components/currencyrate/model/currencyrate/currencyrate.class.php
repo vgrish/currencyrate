@@ -100,6 +100,10 @@ class currencyrate
 					'value' => $value,
 				);
 			}
+			if($setting = $this->modx->getObject('modSystemSetting', 'currencyrate_last_date')) {
+				$setting->set('value', date('Y-m-d H:i:s'));
+				$setting->save();
+			}
 			return true;
 		} else
 			return false;
