@@ -2,32 +2,24 @@
 include_once 'setting.inc.php';
 
 $_lang['currencyrate'] = 'CurrencyRate';
-$_lang['currencyrate_menu_desc'] = 'A sample Extra to develop from.';
-$_lang['currencyrate_intro_msg'] = 'You can select multiple items by holding Shift or Ctrl button.';
+$_lang['currencyrate_menu_desc'] = 'Official rates of foreign currencies against the ruble.';
 
-$_lang['currencyrate_items'] = 'Items';
-$_lang['currencyrate_item_id'] = 'Id';
-$_lang['currencyrate_item_name'] = 'Name';
-$_lang['currencyrate_item_description'] = 'Description';
-$_lang['currencyrate_item_active'] = 'Active';
+$_lang['cr_intro_msg'] = 'Information on foreign exchange rates against the ruble, published on the official website of the Bank of Russia on the Internet, is the official information of the Bank of Russia and does not require additional written confirmation from the Bank of Russia.';
+$_lang['cr_list'] = 'Сurrency exchange rate';
 
-$_lang['currencyrate_item_create'] = 'Create Item';
-$_lang['currencyrate_item_update'] = 'Update Item';
-$_lang['currencyrate_item_enable'] = 'Enable Item';
-$_lang['currencyrate_items_enable'] = 'Enable Items';
-$_lang['currencyrate_item_disable'] = 'Disable Item';
-$_lang['currencyrate_items_disable'] = 'Disable Items';
-$_lang['currencyrate_item_remove'] = 'Remove Item';
-$_lang['currencyrate_items_remove'] = 'Remove Items';
-$_lang['currencyrate_item_remove_confirm'] = 'Are you sure you want to remove this Item?';
-$_lang['currencyrate_items_remove_confirm'] = 'Are you sure you want to remove this Items?';
+// buttons
+$_lang['cr_valute_index_create'] = 'Update course';
+$_lang['cr_valute_index_clear'] = 'Delete';
 
-$_lang['currencyrate_item_err_name'] = 'You must specify the name of Item.';
-$_lang['currencyrate_item_err_ae'] = 'An Item already exists with that name.';
-$_lang['currencyrate_item_err_nf'] = 'Item not found.';
-$_lang['currencyrate_item_err_ns'] = 'Item not specified.';
-$_lang['currencyrate_item_err_remove'] = 'An error occurred while trying to remove the Item.';
-$_lang['currencyrate_item_err_save'] = 'An error occurred while trying to save the Item.';
+// title
+$_lang['cr_valute_id'] = 'Id';
+$_lang['cr_valute_charcode'] = 'Code';
+$_lang['cr_valute_name'] = 'Name';
+$_lang['cr_valute_value'] = 'Value';
+$_lang['cr_valute_nominal'] = 'Nominal';
+$_lang['cr_valute_rate'] = 'Rate';
+$_lang['cr_valute_valuerate'] = 'ValueRate';
 
-$_lang['currencyrate_grid_search'] = 'Search';
-$_lang['currencyrate_grid_actions'] = 'Actions';
+// msg
+$_lang['cr_index_remove_all'] = 'Delete the list of currencies';
+$_lang['cr_index_remove_all_confirm'] = 'You really want to delete the entire list of currencies? Setting the step s will be deleted.';

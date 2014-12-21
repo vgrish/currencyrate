@@ -12,7 +12,7 @@ $_lang['cr_list'] = 'Курс валют';
 $_lang['cr_valute_index_create'] = 'Обновить курс';
 $_lang['cr_valute_index_clear'] = 'Удалить';
 
-
+// title
 $_lang['cr_valute_id'] = 'Id';
 $_lang['cr_valute_charcode'] = 'Код';
 $_lang['cr_valute_name'] = 'Наименование';
@@ -21,35 +21,6 @@ $_lang['cr_valute_nominal'] = 'Номинал';
 $_lang['cr_valute_rate'] = 'Коэф-т';
 $_lang['cr_valute_valuerate'] = 'Значение';
 
-
 // msg
 $_lang['cr_index_remove_all'] = 'Удалить список валют';
 $_lang['cr_index_remove_all_confirm'] = 'Вы действительно хотите удалить весь список валют? Настройки коэф-ов так же будут удалены.';
-
-
-
-$_lang['currencyrate_item_name'] = 'Название';
-$_lang['currencyrate_item_description'] = 'Описание';
-$_lang['currencyrate_item_active'] = 'Активно';
-
-$_lang['currencyrate_item_create'] = 'Создать предмет';
-$_lang['currencyrate_item_update'] = 'Изменить Предмет';
-$_lang['currencyrate_item_enable'] = 'Включить Предмет';
-$_lang['currencyrate_items_enable'] = 'Включить Предметы';
-$_lang['currencyrate_item_disable'] = 'Отключить Предмет';
-$_lang['currencyrate_items_disable'] = 'Отключить Предметы';
-$_lang['currencyrate_item_remove'] = 'Удалить Предмет';
-$_lang['currencyrate_items_remove'] = 'Удалить Предметы';
-$_lang['currencyrate_item_remove_confirm'] = 'Вы уверены, что хотите удалить этот Предмет?';
-$_lang['currencyrate_items_remove_confirm'] = 'Вы уверены, что хотите удалить эти Предметы?';
-$_lang['currencyrate_item_active'] = 'Включено';
-
-$_lang['currencyrate_item_err_name'] = 'Вы должны указать имя Предмета.';
-$_lang['currencyrate_item_err_ae'] = 'Предмет с таким именем уже существует.';
-$_lang['currencyrate_item_err_nf'] = 'Предмет не найден.';
-$_lang['currencyrate_item_err_ns'] = 'Предмет не указан.';
-$_lang['currencyrate_item_err_remove'] = 'Ошибка при удалении Предмета.';
-$_lang['currencyrate_item_err_save'] = 'Ошибка при сохранении Предмета.';
-
-$_lang['currencyrate_grid_search'] = 'Поиск';
-$_lang['currencyrate_grid_actions'] = 'Действия';

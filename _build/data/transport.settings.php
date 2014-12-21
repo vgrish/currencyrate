@@ -15,16 +15,8 @@ $tmp = array(
 		'area' => 'currencyrate_main',
 	),
 
-/*	'timeout' => array(
-		'value' => '2',
-		'xtype' => 'numberfield',
-		'area' => 'currencyrate_main',
-	),*/
-
-
-
 	//временные
-
+/*
 			'assets_path' => array(
 				'xtype' => 'textfield',
 				'value' => '{base_path}currencyrate/assets/components/currencyrate/',
@@ -40,7 +32,7 @@ $tmp = array(
 				'value' => '{base_path}currencyrate/core/components/currencyrate/',
 				'area' => 'currencyrate_temp',
 			),
-
+*/
 
 	//временные
 

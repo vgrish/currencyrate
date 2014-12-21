@@ -2,5 +2,8 @@
 
 $_lang['area_currencyrate_main'] = 'Main';
 
-$_lang['setting_currencyrate_some_setting'] = 'Some setting';
-$_lang['setting_currencyrate_some_setting_desc'] = 'This is description for some setting';
+$_lang['setting_currencyrate_active'] = 'Enable / Disable';
+$_lang['setting_currencyrate_active_desc'] = 'Enable / Disable plastery rate.';
+
+$_lang['setting_currencyrate_url'] = 'Address service';
+$_lang['setting_currencyrate_url_desc'] = 'Url for requests of exchange rate.';
