@@ -9,6 +9,7 @@ class currencyrate
 	public $modx;
 	public $namespace = 'currencyrate';
 	public $cache = null;
+	public $active = false;
 	public $config = array();
 
 	protected $list = array();
@@ -44,6 +45,8 @@ class currencyrate
 
 		$this->modx->addPackage('currencyrate', $this->config['modelPath']);
 		$this->modx->lexicon->load('currencyrate:default');
+		$this->active = $this->modx->getOption('currencyrate_active', $config, false);
+
 	}
 
 	/**

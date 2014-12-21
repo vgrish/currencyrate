@@ -4,7 +4,11 @@ $settings = array();
 
 $tmp = array(
 
-
+	'active' => array(
+		'xtype' => 'combo-boolean',
+		'value' => true,
+		'area' => 'currencyrate_main',
+	),
 	'url' => array(
 		'value' => 'http://www.cbr.ru/scripts/XML_daily.asp?date_req=',
 		'xtype' => 'textfield',

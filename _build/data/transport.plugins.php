@@ -2,15 +2,15 @@
 
 $plugins = array();
 
-$tmp = array(/*
+$tmp = array(
 	'currencyrate' => array(
 		'file' => 'currencyrate',
 		'description' => '',
 		'events' => array(
-			'OnManagerPageInit' => array()
+			'OnHandleRequest' => array()
 		)
 	)
-	*/
+
 );
 
 foreach ($tmp as $k => $v) {
