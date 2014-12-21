@@ -3,10 +3,10 @@
 $chunks = array();
 
 $tmp = array(
-	'tpl.currencyrate.item' => array(
+/*	'tpl.currencyrate.item' => array(
 		'file' => 'item',
 		'description' => '',
-	),
+	),*/
 );
 
 // Save chunks for setup options

@@ -126,6 +126,44 @@ class currencyrate
 		return false;
 	}
 
+	/**
+	 * @param $sp
+	 */
+	public function OnHandleRequest($sp)
+	{
+		$list = $this->getList();
+		$this->modx->setPlaceholders($list, '+');
+	}
+
+	/**
+	 * @param $sp
+	 */
+	public function OnBeforeCacheUpdate($sp) {
+/*		$cacheOptions = array(xPDO::OPT_CACHE_KEY => 'system_settings');
+		$list = $this->modx->getCacheManager()->get('crlist', $cacheOptions);
+		if (empty($list) && $this->modx->getCount('CRlist') > 0) {
+			$collection = $this->modx->getCollection('CRlist');
+			$list = array();
+
+			foreach ($collection as $value) {
+				$list[$value->get('charcode')] = $value->get('valuerate');
+			}
+
+			$this->modx->cacheManager->set('crlist', $list, 0, $cacheOptions);
+		}*/
+
+		$cacheOptions = array(xPDO::OPT_CACHE_KEY => 'crlist');
+		//$this->modx->cacheManager->set('crlist', $list, 0, $cacheOptions);
+		$this->modx->cacheManager->clean($cacheOptions);
+		$this->modx->log(modX::LOG_LEVEL_INFO, '[CR:Info] Clearing the cache. Path: ' . print_r($cacheOptions[0] , 1 ));
+		/*$paths = array(0 => $this->cache_key_s2p . '/');
+		$options = array('objects' => null, 'extensions' => array('.php', '.log'));
+		$this->modx->cacheManager->clearCache($paths, $options);
+		$this->modx->log(modX::LOG_LEVEL_INFO, '[Save2page] Clearing the cache. Path: ' . print_r($paths[0] , 1 )  );*/
+
+
+
+	}
 
 	/**
 	 * @param array $data
@@ -190,6 +228,29 @@ class currencyrate
 		return $this->config['json_response']
 			? $this->modx->toJSON($response)
 			: $response;
+	}
+
+	/**
+	 * from https://github.com/Mark-H/ClientConfig/blob/master/core/components/clientconfig/model/clientconfig/clientconfig.class.php#L75
+	 *
+	 * Grab settings (from cache if possible) as key => value pairs.
+	 * @return array|mixed
+	 */
+	public function getList() {
+		/* Attempt to get from cache */
+		$cacheOptions = array(xPDO::OPT_CACHE_KEY => 'crlist');
+		$list = $this->modx->getCacheManager()->get('crlist', $cacheOptions);
+		if (empty($list) && $this->modx->getCount('CRlist') > 0) {
+			$collection = $this->modx->getCollection('CRlist');
+			$list = array();
+			/* @var CRlist $setting */
+			foreach ($collection as $value) {
+				$list[$value->get('charcode')] = $value->get('valuerate');
+			}
+			/* Write to cache again */
+			$this->modx->cacheManager->set('crlist', $list, 0, $cacheOptions);
+		}
+		return (is_array($list)) ? $list : array();
 	}
 
 }

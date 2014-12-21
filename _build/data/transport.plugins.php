@@ -7,7 +7,8 @@ $tmp = array(
 		'file' => 'currencyrate',
 		'description' => '',
 		'events' => array(
-			'OnHandleRequest' => array()
+			'OnHandleRequest' => array(),
+			'OnBeforeCacheUpdate' => array(),
 		)
 	)
 

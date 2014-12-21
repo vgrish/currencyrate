@@ -10,8 +10,8 @@ $tmp = array(
 		'area' => 'currencyrate_main',
 	),
 	'url' => array(
-		'value' => 'http://www.cbr.ru/scripts/XML_daily.asp?date_req=',
 		'xtype' => 'textfield',
+		'value' => 'http://www.cbr.ru/scripts/XML_daily.asp?date_req=',
 		'area' => 'currencyrate_main',
 	),
 
