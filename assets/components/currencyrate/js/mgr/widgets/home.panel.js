@@ -1,7 +1,7 @@
 currencyrate.panel.Home = function (config) {
 	config = config || {};
     var last_date = (currencyrate.config.last_date !== '') ? '<p>' +  _('cr_last_date_msg') + currencyrate.config.last_date + '</p>' : '';
-	Ext.apply(config, {
+	Ext.apply(config, { 
 		baseCls: 'modx-formpanel',
 		layout: 'anchor',
 		hideMode: 'offsets',
