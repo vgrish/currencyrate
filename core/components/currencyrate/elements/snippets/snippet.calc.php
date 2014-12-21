@@ -14,7 +14,6 @@ if(!empty($divider)) {
 	$divider = !empty($list[$divider]) ? $list[$divider] : 1;
 	$output = $currencyrate->formatPrice(($input / $divider), $format, $noZeros);
 }
-
 if (!empty($toPlaceholder)) {
 	$modx->setPlaceholder($toPlaceholder, $output);
 }
