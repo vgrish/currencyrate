@@ -139,30 +139,9 @@ class currencyrate
 	 * @param $sp
 	 */
 	public function OnBeforeCacheUpdate($sp) {
-/*		$cacheOptions = array(xPDO::OPT_CACHE_KEY => 'system_settings');
-		$list = $this->modx->getCacheManager()->get('crlist', $cacheOptions);
-		if (empty($list) && $this->modx->getCount('CRlist') > 0) {
-			$collection = $this->modx->getCollection('CRlist');
-			$list = array();
-
-			foreach ($collection as $value) {
-				$list[$value->get('charcode')] = $value->get('valuerate');
-			}
-
-			$this->modx->cacheManager->set('crlist', $list, 0, $cacheOptions);
-		}*/
-
 		$cacheOptions = array(xPDO::OPT_CACHE_KEY => 'crlist');
-		//$this->modx->cacheManager->set('crlist', $list, 0, $cacheOptions);
 		$this->modx->cacheManager->clean($cacheOptions);
-		$this->modx->log(modX::LOG_LEVEL_INFO, '[CR:Info] Clearing the cache. Path: ' . print_r($cacheOptions[0] , 1 ));
-		/*$paths = array(0 => $this->cache_key_s2p . '/');
-		$options = array('objects' => null, 'extensions' => array('.php', '.log'));
-		$this->modx->cacheManager->clearCache($paths, $options);
-		$this->modx->log(modX::LOG_LEVEL_INFO, '[Save2page] Clearing the cache. Path: ' . print_r($paths[0] , 1 )  );*/
-
-
-
+		$this->modx->log(modX::LOG_LEVEL_INFO, '[CR:Info] Clearing the cache. Path: crlist');
 	}
 
 	/**
