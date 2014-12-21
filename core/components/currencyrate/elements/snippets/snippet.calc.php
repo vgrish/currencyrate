@@ -19,4 +19,4 @@ if (!empty($toPlaceholder)) {
 }
 else {
 	return $output;
-}
+} 
