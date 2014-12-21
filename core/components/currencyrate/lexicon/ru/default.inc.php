@@ -10,7 +10,7 @@ $_lang['cr_list'] = 'Курс валют';
 
 // buttons
 $_lang['cr_valute_index_create'] = 'Обновить курс';
-$_lang['cr_valute_index_clear'] = 'Очистить';
+$_lang['cr_valute_index_clear'] = 'Удалить';
 
 
 $_lang['cr_valute_id'] = 'Id';
@@ -24,7 +24,7 @@ $_lang['cr_valute_valuerate'] = 'Значение';
 
 // msg
 $_lang['cr_index_remove_all'] = 'Удалить список валют';
-$_lang['cr_index_remove_all_confirm'] = 'Вы действительно хотите очистить весь список валют? Настройки коэф-ов так же будут удалены.';
+$_lang['cr_index_remove_all_confirm'] = 'Вы действительно хотите удалить весь список валют? Настройки коэф-ов так же будут удалены.';
 
 
 
