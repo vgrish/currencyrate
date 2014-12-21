@@ -141,6 +141,13 @@ class currencyrate
 	}
 
 
+	public function calcValueRate($data = array()) {
+
+		$rate = $data['rate'];
+
+		$result = ($data['value'] / $data['nominal']) * $rate;
+	}
+
 	/**
 	 * @param string $message
 	 * @param array $data

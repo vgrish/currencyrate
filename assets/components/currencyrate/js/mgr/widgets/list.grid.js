@@ -5,6 +5,11 @@ currencyrate.grid.List = function (config) {
     }
     Ext.applyIf(config, {
         url: currencyrate.config.connector_url,
+
+        save_action: 'mgr/valute/updatefromgrid',
+        autosave: true,
+        save_callback: this.updateRow,
+
         fields: this.getFields(config),
         columns: this.getColumns(config),
         tbar: this.getTopBar(config),
@@ -216,6 +221,7 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
             dataIndex: 'rate',
             sortable: true,
             width: 150,
+            editor:{xtype:'textfield'}
         }, {
             header: _('cr_valute_valuerate'),
             dataIndex: 'valuerate',
@@ -285,13 +291,10 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
         })
     },
 
-
-
-
-    indexClear: function () {
-        var el = this.getEl();
-        el.mask(_('loading'),'x-mask-loading');
-        MODx.Ajax.request({
+    indexClear: function(btn,e) {
+        MODx.msg.confirm({
+            title: _('cr_index_remove_all'),
+            text: _('cr_index_remove_all_confirm'),
             url: this.config.url,
             params: {
                 action: 'mgr/index/clear'
@@ -299,9 +302,8 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
             listeners: {
                 success: {fn:function(r) {this.refresh();}, scope:this}
             }
-        })
+        });
     },
-
 
 
     onClick: function (e) {

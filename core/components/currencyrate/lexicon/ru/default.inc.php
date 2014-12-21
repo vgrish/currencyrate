@@ -22,6 +22,12 @@ $_lang['cr_valute_rate'] = 'Коэф-т';
 $_lang['cr_valute_valuerate'] = 'Значение';
 
 
+// msg
+$_lang['cr_index_remove_all'] = 'Удалить список валют';
+$_lang['cr_index_remove_all_confirm'] = 'Вы действительно хотите очистить весь список валют? Настройки коэф-ов так же будут удалены.';
+
+
+
 $_lang['currencyrate_item_name'] = 'Название';
 $_lang['currencyrate_item_description'] = 'Описание';
 $_lang['currencyrate_item_active'] = 'Активно';
