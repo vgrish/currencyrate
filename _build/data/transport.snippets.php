@@ -3,10 +3,10 @@
 $snippets = array();
 
 $tmp = array(
-/*	'currencyrate' => array(
-		'file' => 'currencyrate',
+	'CRcalc' => array(
+		'file' => 'calc',
 		'description' => '',
-	),*/
+	),
 );
 
 foreach ($tmp as $k => $v) {

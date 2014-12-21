@@ -232,4 +232,26 @@ class currencyrate
 		return (is_array($list)) ? $list : array();
 	}
 
+	/**
+	 * Function for formatting price
+	 *
+	 * @param string $price
+	 * @param string $format
+	 * @param bool $no_zeros
+	 * @return mixed|string
+	 */
+	public function formatPrice($price = '0', $format = '[2, ".", " "]', $no_zeros = true) {
+		$pf = $this->modx->fromJSON($format);
+		if (is_array($pf)) {
+			$price = number_format($price, $pf[0], $pf[1], $pf[2]);
+		}
+		if ($no_zeros) {
+			if (preg_match('/\..*$/', $price, $matches)) {
+				$tmp = rtrim($matches[0], '.0');
+				$price = str_replace($matches[0], $tmp, $price);
+			}
+		}
+		return $price;
+	}
+
 }
