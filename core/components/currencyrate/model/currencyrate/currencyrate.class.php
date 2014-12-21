@@ -209,7 +209,7 @@ class currencyrate
 			: $response;
 	}
 
-	/**
+	/** 
 	 * from https://github.com/Mark-H/ClientConfig/blob/master/core/components/clientconfig/model/clientconfig/clientconfig.class.php#L75
 	 *
 	 * Grab settings (from cache if possible) as key => value pairs.
