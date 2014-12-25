@@ -15,4 +15,4 @@ require_once MODX_CONNECTORS_PATH . 'index.php';
 $Referral = $modx->getService('referral', 'Referral', $modx->getOption('referral_core_path', null, $modx->getOption('core_path') . 'components/referral/') . 'model/referral/');
 $modx->lexicon->load('referral:default');
 
-$currencyrate->rateIntoDb();
+$currencyrate->rateIntoDb(); 
