@@ -10,3 +10,6 @@ $_lang['setting_currencyrate_url_desc'] = 'Url для запросов курс�
 
 $_lang['setting_currencyrate_last_date'] = 'Дата обновления';
 $_lang['setting_currencyrate_last_date_desc'] = 'Дата и время последнего обновления курса валют.';
+
+$_lang['setting_currencyrate_password'] = 'Пароль обновления';
+$_lang['setting_currencyrate_password_desc'] = 'Пароль для обновления курса валют с фронта сайта.';

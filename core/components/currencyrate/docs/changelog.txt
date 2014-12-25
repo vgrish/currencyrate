@@ -1,6 +1,9 @@
 Changelog for currencyrate.
 
+1.0.1-beta
+==============
+- add script update from the front.
+
 1.0.0-beta
 ==============
-
 - Initial release.

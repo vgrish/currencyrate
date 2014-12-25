@@ -19,6 +19,11 @@ $tmp = array(
 		'value' => '',
 		'area' => 'currencyrate_main',
 	),
+	'password' => array(
+		'xtype' => 'textfield',
+		'value' => '12345',
+		'area' => 'currencyrate_main',
+	),
 
 	//временные
 /*
