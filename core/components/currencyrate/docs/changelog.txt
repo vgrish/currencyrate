@@ -1,5 +1,10 @@
 Changelog for currencyrate.
 
+1.0.2-beta
+==============
+- add ctx in web-connector
+- add apc.cache_by_default Off
+
 1.0.1-beta
 ==============
 - add script update from the front.
