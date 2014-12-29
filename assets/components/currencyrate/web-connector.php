@@ -21,7 +21,7 @@ $modx->getService('error','error.modError');
 $modx->setLogLevel(modX::LOG_LEVEL_ERROR);
 
 if(!isset($_REQUEST['password']) || ($_REQUEST['password'] !== $modx->getOption('currencyrate_password'))) {
-	$modx->log(1, print_r('[CR:Error] password incorrect : '. $_REQUEST['password'], 1));
+	$modx->log(modX::LOG_LEVEL_ERROR, print_r('[CR:Error] password incorrect : '. $_REQUEST['password'], 1));
 	return;
 }
 
@@ -29,6 +29,6 @@ $currencyrate = $modx->getService('currencyrate', 'currencyrate', $modx->getOpti
 if (!($currencyrate instanceof currencyrate)) return '';
 
 if($currencyrate->rateIntoDb())
-	$modx->log(1, print_r('[CR:Success] currency exchange rate updated. Time: '. date('Y-m-d H:i:s'), 1));
+	$modx->log(modX::LOG_LEVEL_ERROR, print_r('[CR:Success] currency exchange rate updated.', 1));
 else
-	$modx->log(1, print_r('[CR:Error] NO updated. Time: '. date('Y-m-d H:i:s'), 1));
+	$modx->log(modX::LOG_LEVEL_ERROR, print_r('[CR:Error] NO updated.', 1));
