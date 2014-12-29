@@ -2,6 +2,11 @@
 // For debug
 ini_set('display_errors', 1);
 ini_set('error_reporting', -1);
+ini_set('apc.cache_by_default', 'Off');
+
+if(!isset($_REQUEST['ctx']) OR !in_array($_REQUEST['ctx'], array('web'))){
+	$_REQUEST['ctx'] = 'web';
+}
 
 // Load MODX config
 if (file_exists(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.core.php')) {
@@ -11,6 +16,9 @@ if (file_exists(dirname(dirname(dirname(dirname(__FILE__)))) . '/config.core.php
 }
 require_once MODX_CORE_PATH . 'config/' . MODX_CONFIG_KEY . '.inc.php';
 require_once MODX_CONNECTORS_PATH . 'index.php';
+
+$modx->getService('error','error.modError');
+$modx->setLogLevel(modX::LOG_LEVEL_ERROR);
 
 if(!isset($_REQUEST['password']) || ($_REQUEST['password'] !== $modx->getOption('currencyrate_password'))) {
 	$modx->log(1, print_r('[CR:Error] password incorrect : '. $_REQUEST['password'], 1));
