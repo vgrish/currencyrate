@@ -16,6 +16,7 @@ class CRUpdateFromGridProcessor extends modObjectUpdateProcessor {
 			return $this->modx->lexicon('invalid_data');
 		}
 		$data = $this->modx->currencyrate->calcData($data);
+		$this->modx->currencyrate->cleanCache();
 		$this->setProperties($data);
 		$this->unsetProperty('data');
 		return parent::initialize();

@@ -1,5 +1,9 @@
 Changelog for currencyrate.
 
+1.0.3
+==============
+- add method clear the cache
+
 1.0.2-beta
 ==============
 - add ctx in web-connector

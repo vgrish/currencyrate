@@ -126,6 +126,7 @@ class currencyrate
 				$itemFromDb->fromArray($item);
 				if(!$itemFromDb->save()) $this->modx->log(1, print_r('[CR:Error] save to db for charcode - '.$item['charcode'] , 1));
 			}
+			$this->cleanCache();
 			return true;
 		}
 		$this->modx->log(1, print_r('[CR:Error] NO loadRate()', 1));
@@ -144,10 +145,9 @@ class currencyrate
 	/**
 	 * @param $sp
 	 */
-	public function OnBeforeCacheUpdate($sp) {
-		$cacheOptions = array(xPDO::OPT_CACHE_KEY => 'crlist');
-		$this->modx->cacheManager->clean($cacheOptions);
-		$this->modx->log(modX::LOG_LEVEL_INFO, '[CR:Info] Clearing the cache. Path: crlist');
+	public function OnBeforeCacheUpdate($sp)
+	{
+		$this->cleanCache();
 	}
 
 	/**
@@ -258,6 +258,16 @@ class currencyrate
 			}
 		}
 		return $price;
+	}
+
+	/**
+	 * clean cache
+	 */
+	public function cleanCache()
+	{
+		$cacheOptions = array(xPDO::OPT_CACHE_KEY => 'crlist');
+		$this->modx->cacheManager->clean($cacheOptions);
+		$this->modx->log(modX::LOG_LEVEL_INFO, '[CR:Info] Clearing the cache. Path: crlist');
 	}
 
 }
