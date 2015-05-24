@@ -1,5 +1,12 @@
 Changelog for currencyrate.
 
+1.0.4
+==============
+- add active, rank for currency
+- add sort rank
+- add Rub currency
+- add list snippet
+
 1.0.3
 ==============
 - add method clear the cache

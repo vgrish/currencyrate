@@ -19,6 +19,7 @@ $_lang['cr_valute_value'] = 'Value';
 $_lang['cr_valute_nominal'] = 'Nominal';
 $_lang['cr_valute_rate'] = 'Rate';
 $_lang['cr_valute_valuerate'] = 'ValueRate';
+$_lang['cr_valute_active'] = 'Active';
 
 // msg
 $_lang['cr_index_remove_all'] = 'Delete the list of currencies';

@@ -20,6 +20,7 @@ $_lang['cr_valute_value'] = 'Значение';
 $_lang['cr_valute_nominal'] = 'Номинал';
 $_lang['cr_valute_rate'] = 'Коэф-т';
 $_lang['cr_valute_valuerate'] = 'Значение';
+$_lang['cr_valute_active'] = 'Включен';
 
 // msg
 $_lang['cr_index_remove_all'] = 'Удалить список валют';

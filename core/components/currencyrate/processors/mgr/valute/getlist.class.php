@@ -6,8 +6,8 @@
 class CRGetListProcessor extends modObjectGetListProcessor {
 	public $objectType = 'CRlist';
 	public $classKey = 'CRlist';
-	public $defaultSortField = 'id';
-	public $defaultSortDirection = 'ASC';
+	public $defaultSortField = 'rank';
+	public $defaultSortDirection  = 'asc';
 
 	/**
 	 * @param xPDOObject $object

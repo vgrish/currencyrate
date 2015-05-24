@@ -24,6 +24,21 @@ $tmp = array(
 		'value' => '12345',
 		'area' => 'currencyrate_main',
 	),
+	'currency' => array(
+		'xtype' => 'textfield',
+		'value' => '643',
+		'area' => 'currencyrate_main',
+	),
+	'front_js' => array(
+		'xtype' => 'textfield',
+		'value' => '[[+assetsUrl]]js/web/default.js',
+		'area' => 'currencyrate_main',
+	),
+	'front_css' => array(
+		'xtype' => 'textfield',
+		'value' => '[[+assetsUrl]]css/web/default.css',
+		'area' => 'currencyrate_main',
+	),
 
 	//временные
 /*

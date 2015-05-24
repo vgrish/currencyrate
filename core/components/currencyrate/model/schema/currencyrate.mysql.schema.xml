@@ -10,6 +10,8 @@
         <field key="value" dbtype="decimal" precision="12,4" phptype="float" null="true" default="0" />
         <field key="rate" dbtype="varchar" precision="100" phptype="varchar" null="true" />
         <field key="valuerate" dbtype="decimal" precision="12,4" phptype="float" null="true" default="0" />
+        <field key="active" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0" />
+        <field key="rank" dbtype="tinyint" precision="1" phptype="integer" attributes="unsigned" null="true" default="0" />
 
         <index alias="numcode" name="numcode" primary="false" unique="false" type="BTREE" >
             <column key="numcode" length="" collation="A" null="false" />
@@ -31,6 +33,9 @@
         </index>
         <index alias="valuerate" name="valuerate" primary="false" unique="false" type="BTREE">
             <column key="valuerate" length="" collation="A" null="false" />
+        </index>
+        <index alias="active" name="active" primary="false" unique="false" type="BTREE" >
+            <column key="active" length="" collation="A" null="false" />
         </index>
 
 	</object>

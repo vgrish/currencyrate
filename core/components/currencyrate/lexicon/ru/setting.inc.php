@@ -13,3 +13,9 @@ $_lang['setting_currencyrate_last_date_desc'] = 'Дата и время посл
 
 $_lang['setting_currencyrate_password'] = 'Пароль обновления';
 $_lang['setting_currencyrate_password_desc'] = 'Пароль для обновления курса валют с фронта сайта.';
+
+$_lang['setting_currencyrate_front_css'] = 'Стили фронтенда';
+$_lang['setting_currencyrate_front_css_desc'] = 'Путь к файлу со стилями. Если вы хотите использовать собственные стили - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';
+
+$_lang['setting_currencyrate_front_js'] = 'Скрипты фронтенда';
+$_lang['setting_currencyrate_front_js_desc'] = 'Путь к файлу со скриптами. Если вы хотите использовать собственные скрипты - укажите путь к ним здесь, или очистите параметр и загрузите их вручную через шаблон сайта.';

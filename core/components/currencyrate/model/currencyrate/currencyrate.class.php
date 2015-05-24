@@ -13,6 +13,14 @@ class currencyrate
 	public $config = array();
 
 	protected $list = array();
+	protected $rub = array(
+		'numcode' => 643,
+		'charcode' => 'RUB',
+		'name' => 'Российский рубль'
+	);
+	public $currency;
+	/* @var pdoTools $pdoTools */
+	public $pdoTools;
 
 	/**
 	 * @param modX $modx
@@ -22,7 +30,7 @@ class currencyrate
 	{
 		$this->modx =& $modx;
 
-		$this->namespace = $this->getOption('currencyrate', $config, 'currencyrate');
+		$this->namespace = $this->getOption('namespace', $config, 'currencyrate');
 		$corePath = $this->modx->getOption('currencyrate_core_path', $config, $this->modx->getOption('core_path') . 'components/currencyrate/');
 		$assetsUrl = $this->modx->getOption('currencyrate_assets_url', $config, $this->modx->getOption('assets_url') . 'components/currencyrate/');
 		$connectorUrl = $assetsUrl . 'connector.php';
@@ -43,12 +51,17 @@ class currencyrate
 			'processorsPath' => $corePath . 'processors/',
 
 			'last_date' => $this->modx->getOption('currencyrate_last_date'),
+			'currency' => & $_COOKIE['currency'],
+
 		), $config);
 
 		$this->modx->addPackage('currencyrate', $this->config['modelPath']);
 		$this->modx->lexicon->load('currencyrate:default');
 		$this->active = $this->modx->getOption('currencyrate_active', $config, false);
-
+		$this->currency = & $this->config['currency'];
+		if (empty($this->currency)) {
+			$this->modx->getOption('currencyrate_currency', null, $this->rub['numcode']);
+		}
 	}
 
 	/**
@@ -70,6 +83,48 @@ class currencyrate
 			}
 		}
 		return $option;
+	}
+
+	/**
+	 * Initializes msOptionsPrice into different contexts.
+	 *
+	 * @param string $ctx The context to load. Defaults to web.
+	 * @param array $scriptProperties array with additional parameters
+	 *
+	 * @return boolean
+	 */
+	public function initialize($ctx = 'web', $scriptProperties = array()) {
+		$this->config = array_merge($this->config, $scriptProperties);
+		if (!$this->pdoTools) {
+			$this->loadPdoTools();
+		}
+		$this->pdoTools->setConfig($this->config);
+		$this->config['ctx'] = $ctx;
+		if (!empty($this->initialized[$ctx])) {
+			return true;
+		}
+		switch ($ctx) {
+			case 'mgr': break;
+			default:
+				if (!defined('MODX_API_MODE') || !MODX_API_MODE) {
+					$config = $this->makePlaceholders($this->config);
+					$css = !empty($this->config['front_css'])
+						? $this->config['front_css']
+						: $this->modx->getOption('currencyrate_front_css');
+					if (!empty($css) && preg_match('/\.css/i', $css)) {
+						$this->modx->regClientCSS(str_replace($config['pl'], $config['vl'], $css));
+					}
+					$js = !empty($this->config['front_js'])
+						? $this->config['front_js']
+						: $this->modx->getOption('currencyrate_front_js');
+					if (!empty($js) && preg_match('/\.js/i', $js)) {
+						$this->modx->regClientScript(str_replace($config['pl'], $config['vl'], $js));
+					}
+				}
+				$this->initialized[$ctx] = true;
+				break;
+		}
+		return true;
 	}
 
 	/**
@@ -117,9 +172,24 @@ class currencyrate
 	public function rateIntoDb()
 	{
 		if ($this->loadRate()) {
+			// add RUB
+			if(!$itemFromDb = $this->modx->getObject('CRlist', $this->rub)) {
+				$itemFromDb = $this->modx->newObject('CRlist');
+				$itemFromDb->fromArray(array_merge(
+					$this->rub,
+					array(
+						'nominal' => 1,
+						'value' => 1,
+						'valuerate' => 1,
+						'rank' => 0
+				)));
+				if(!$itemFromDb->save()) $this->modx->log(1, print_r('[CR:Error] save to db for charcode - '.$itemFromDb->get('charcode') , 1));
+			}
+			//
 			foreach($this->list as $item) {
 				if(!$itemFromDb = $this->modx->getObject('CRlist', array('numcode' => $item['numcode']))) {
 					$itemFromDb = $this->modx->newObject('CRlist');
+					$itemFromDb->set('rank', $this->modx->getCount('CRlist'));
 				}
 				$item['rate'] = $itemFromDb->get('rate');
 				$item = $this->calcData($item);
@@ -131,23 +201,6 @@ class currencyrate
 		}
 		$this->modx->log(1, print_r('[CR:Error] NO loadRate()', 1));
 		return false;
-	}
-
-	/**
-	 * @param $sp
-	 */
-	public function OnHandleRequest($sp)
-	{
-		$list = $this->getList();
-		$this->modx->setPlaceholders($list, '+');
-	}
-
-	/**
-	 * @param $sp
-	 */
-	public function OnBeforeCacheUpdate($sp)
-	{
-		$this->cleanCache();
 	}
 
 	/**
@@ -177,6 +230,64 @@ class currencyrate
 		}
 		$value += $rate;
 		return round($value, 4);
+	}
+
+	/**
+	 * from https://github.com/bezumkin/Tickets/blob/9c09152ae4a1cdae04fb31d2bc0fa57be5e0c7ea/core/components/tickets/model/tickets/tickets.class.php#L1120
+	 *
+	 * Loads an instance of pdoTools
+	 * @return boolean
+	 */
+	public function loadPdoTools()
+	{
+		if (!is_object($this->pdoTools) || !($this->pdoTools instanceof pdoTools)) {
+			/** @var pdoFetch $pdoFetch */
+			$fqn = $this->modx->getOption('pdoFetch.class', null, 'pdotools.pdofetch', true);
+			if ($pdoClass = $this->modx->loadClass($fqn, '', false, true)) {
+				$this->pdoTools = new $pdoClass($this->modx, $this->config);
+			} elseif ($pdoClass = $this->modx->loadClass($fqn, MODX_CORE_PATH . 'components/pdotools/model/', false, true)) {
+				$this->pdoTools = new $pdoClass($this->modx, $this->config);
+			} else {
+				$this->modx->log(modX::LOG_LEVEL_ERROR, 'Could not load pdoFetch from "MODX_CORE_PATH/components/pdotools/model/".');
+			}
+		}
+		return !empty($this->pdoTools) && $this->pdoTools instanceof pdoTools;
+	}
+
+	/**
+	 * from https://github.com/bezumkin/Tickets/blob/9c09152ae4a1cdae04fb31d2bc0fa57be5e0c7ea/core/components/tickets/model/tickets/tickets.class.php#L1147
+	 *
+	 * Process and return the output from a Chunk by name.
+	 * @param string $name The name of the chunk.
+	 * @param array $properties An associative array of properties to process the Chunk with, treated as placeholders within the scope of the Element.
+	 * @param boolean $fastMode If false, all MODX tags in chunk will be processed.
+	 * @return string The processed output of the Chunk.
+	 */
+	public function getChunk($name, array $properties = array(), $fastMode = false)
+	{
+		if (!$this->modx->parser) {
+			$this->modx->getParser();
+		}
+		if (!$this->pdoTools) {
+			$this->loadPdoTools();
+		}
+		return $this->pdoTools->getChunk($name, $properties, $fastMode);
+	}
+
+	/**
+	 * Method for transform array to placeholders
+	 *
+	 * @var array $array With keys and values
+	 * @var string $prefix Prefix for array keys
+	 *
+	 * @return array $array Two nested arrays with placeholders and values
+	 */
+	public function makePlaceholders(array $array = array(), $prefix = '')
+	{
+		if (!$this->pdoTools) {
+			$this->loadPdoTools();
+		}
+		return $this->pdoTools->makePlaceholders($array, $prefix);
 	}
 
 	/**
@@ -268,6 +379,29 @@ class currencyrate
 		$cacheOptions = array(xPDO::OPT_CACHE_KEY => 'crlist');
 		$this->modx->cacheManager->clean($cacheOptions);
 		$this->modx->log(modX::LOG_LEVEL_INFO, '[CR:Info] Clearing the cache. Path: crlist');
+	}
+
+	/*
+	 *
+	 * Events
+	 *
+	 */
+
+	/**
+	 * @param $sp
+	 */
+	public function OnHandleRequest($sp)
+	{
+		$list = $this->getList();
+		$this->modx->setPlaceholders($list, '+');
+	}
+
+	/**
+	 * @param $sp
+	 */
+	public function OnBeforeCacheUpdate($sp)
+	{
+		$this->cleanCache();
 	}
 
 }

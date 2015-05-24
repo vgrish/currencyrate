@@ -3,10 +3,14 @@
 $chunks = array();
 
 $tmp = array(
-/*	'tpl.currencyrate.item' => array(
-		'file' => 'item',
+	'tpl.crList.row' => array(
+		'file' => 'list_row',
 		'description' => '',
-	),*/
+	),
+	'tpl.crList.outer' => array(
+		'file' => 'list_outer',
+		'description' => '',
+	),
 );
 
 // Save chunks for setup options

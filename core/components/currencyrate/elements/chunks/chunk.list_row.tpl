@@ -1,0 +1,1 @@
+<option value="[[+numcode]]" [[+selected]]>[[+charcode]]</option>

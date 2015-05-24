@@ -7,6 +7,10 @@ $tmp = array(
 		'file' => 'calc',
 		'description' => '',
 	),
+	'CRlist' => array(
+		'file' => 'list',
+		'description' => '',
+	),
 );
 
 foreach ($tmp as $k => $v) {
