@@ -53,7 +53,7 @@ $rows = array();
 if (!empty($data) && is_array($data)) {
 	foreach ($data as $k => $row) {
 		$row['idx'] = $currencyrate->pdoTools->idx++;
-		$row['selected'] = $row['numcode'] == $selected ? 'selected' : '';
+		$row['selected'] = $row['charcode'] == $selected ? 'selected' : '';
 		$rows[] = empty($tplRow) ? $row : $currencyrate->pdoTools->getChunk($tplRow, $row);
 	}
 }

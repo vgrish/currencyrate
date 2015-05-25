@@ -10,7 +10,16 @@ $tmp = array(
 			'OnHandleRequest' => array(),
 			'OnBeforeCacheUpdate' => array(),
 		)
+	),
+	'crMSprice' => array(
+		'file' => 'ms_price',
+		'description' => '',
+		'events' => array(
+			//'msOnGetProductPrice' => array(),
+			//'msOnBeforeAddToCart' => array(),
+		)
 	)
+
 
 );
 

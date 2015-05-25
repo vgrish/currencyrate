@@ -26,7 +26,7 @@ $tmp = array(
 	),
 	'currency' => array(
 		'xtype' => 'textfield',
-		'value' => '643',
+		'value' => 'RUB',
 		'area' => 'currencyrate_main',
 	),
 	'front_js' => array(

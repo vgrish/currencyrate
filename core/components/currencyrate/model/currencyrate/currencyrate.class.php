@@ -60,7 +60,7 @@ class currencyrate
 		$this->active = $this->modx->getOption('currencyrate_active', $config, false);
 		$this->currency = & $this->config['currency'];
 		if (empty($this->currency)) {
-			$this->modx->getOption('currencyrate_currency', null, $this->rub['numcode']);
+			$this->modx->getOption('currencyrate_currency', null, $this->rub['charcode']);
 		}
 	}
 

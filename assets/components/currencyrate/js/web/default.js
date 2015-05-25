@@ -7,8 +7,8 @@ var currencyrate = {
         currencyrate.setup();
         // listeners
         $(document).on('change', currencyrate.par.select, function(e) {
-            var numcode = $(currencyrate.par.select + ' option:selected').attr('value');
-            document.cookie = 'currency=' + numcode + '; path=/';
+            var charcode = $(currencyrate.par.select + ' option:selected').attr('value');
+            document.cookie = 'currency=' + charcode + '; path=/';
             location.reload();
         });
     }
