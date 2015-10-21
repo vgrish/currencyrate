@@ -22,4 +22,3 @@ $_lang['setting_currencyrate_front_js_desc'] = 'Путь к файлу со ск
 
 $_lang['setting_currencyrate_currency'] = 'Валюта магазина';
 $_lang['setting_currencyrate_currency_desc'] = 'Основная валюта магазина.';
-

@@ -4,7 +4,8 @@
  * The home manager controller for currencyrate.
  *
  */
-class currencyrateHomeManagerController extends currencyrateMainController {
+class currencyrateHomeManagerController extends currencyrateMainController
+{
 	/* @var currencyrate $currencyrate */
 	public $currencyrate;
 
@@ -12,14 +13,16 @@ class currencyrateHomeManagerController extends currencyrateMainController {
 	/**
 	 * @param array $scriptProperties
 	 */
-	public function process(array $scriptProperties = array()) {
+	public function process(array $scriptProperties = array())
+	{
 	}
 
 
 	/**
 	 * @return null|string
 	 */
-	public function getPageTitle() {
+	public function getPageTitle()
+	{
 		return $this->modx->lexicon('currencyrate');
 	}
 
@@ -27,10 +30,12 @@ class currencyrateHomeManagerController extends currencyrateMainController {
 	/**
 	 * @return void
 	 */
-	public function loadCustomCssJs() {
+	public function loadCustomCssJs()
+	{
 		$this->addCss($this->currencyrate->config['cssUrl'] . 'mgr/main.css');
 		$this->addCss($this->currencyrate->config['cssUrl'] . 'mgr/bootstrap.buttons.css');
 		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/misc/utils.js');
+		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/widgets/window.js');
 		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/widgets/list.grid.js');
 		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/widgets/home.panel.js');
 		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/sections/home.js');
@@ -45,7 +50,8 @@ class currencyrateHomeManagerController extends currencyrateMainController {
 	/**
 	 * @return string
 	 */
-	public function getTemplateFile() {
+	public function getTemplateFile()
+	{
 		return $this->currencyrate->config['templatesPath'] . 'home.tpl';
 	}
 }

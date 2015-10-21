@@ -1,7 +1,7 @@
 <?php
 // For debug
-ini_set('display_errors', 1);
-ini_set('error_reporting', -1);
+//ini_set('display_errors', 1);
+//ini_set('error_reporting', -1);
 ini_set('apc.cache_by_default', 'Off');
 
 if(!isset($_REQUEST['ctx']) OR !in_array($_REQUEST['ctx'], array('web'))){

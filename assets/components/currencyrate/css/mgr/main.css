@@ -67,3 +67,14 @@ a.x-menu-item .x-menu-item-text .icon {
 ul.currencyrate-row-actions .actions-menu {width: 40px;}
 ul.currencyrate-row-actions .actions-menu:after {content: " \f107";}
 */
+
+.currencyrate-cogs img {
+	_display: none;
+}
+.currencyrate-cogs {
+	padding: 3px 20px 3px 6px!important;
+}
+.currencyrate-cogs i.icon {
+	padding-right: 3px;
+	width: 15px;
+}

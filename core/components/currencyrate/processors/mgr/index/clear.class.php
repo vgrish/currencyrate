@@ -1,19 +1,25 @@
 <?php
 
-class CRRemoveAllProcessor extends modObjectRemoveProcessor {
+class modCRlistRemoveAllProcessor extends modObjectRemoveProcessor
+{
+
 	public $checkRemovePermission = true;
 	public $objectType = 'CRlist';
 	public $classKey = 'CRlist';
 	public $languageTopics = array('currencyrate');
+
 	/** {@inheritDoc} */
-	public function initialize() {
+	public function initialize()
+	{
 		if (!$this->checkRemovePermission) {
 			return $this->modx->lexicon('access_denied');
 		}
 		return true;
 	}
+
 	/** {@inheritDoc} */
-	public function process() {
+	public function process()
+	{
 		$canRemove = $this->beforeRemove();
 		if ($canRemove !== true) {
 			return $this->failure($canRemove);
@@ -27,9 +33,13 @@ class CRRemoveAllProcessor extends modObjectRemoveProcessor {
 		$this->cleanup();
 		return $this->success('');
 	}
+
 	/** {@inheritDoc} */
-	public function logManagerAction() {
-		$this->modx->logManagerAction($this->objectType.'_truncate',$this->classKey, 0);
+	public function logManagerAction()
+	{
+		$this->modx->logManagerAction($this->objectType . '_truncate', $this->classKey, 0);
 	}
+
 }
-return 'CRRemoveAllProcessor';
+
+return 'modCRlistRemoveAllProcessor';

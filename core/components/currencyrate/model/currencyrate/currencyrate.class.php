@@ -16,7 +16,8 @@ class currencyrate
 	protected $rub = array(
 		'numcode' => 643,
 		'charcode' => 'RUB',
-		'name' => 'Российский рубль'
+		'name' => 'Российский рубль',
+		'rate' => 0
 	);
 	public $currency;
 	/* @var pdoTools $pdoTools */
@@ -58,7 +59,7 @@ class currencyrate
 		$this->modx->addPackage('currencyrate', $this->config['modelPath']);
 		$this->modx->lexicon->load('currencyrate:default');
 		$this->active = $this->modx->getOption('currencyrate_active', $config, false);
-		$this->currency = & $this->config['currency'];
+		$this->currency = &$this->config['currency'];
 		if (empty($this->currency)) {
 			$this->currency = $this->modx->getOption('currencyrate_currency', null, $this->rub['charcode']);
 		}
@@ -93,7 +94,8 @@ class currencyrate
 	 *
 	 * @return boolean
 	 */
-	public function initialize($ctx = 'web', $scriptProperties = array()) {
+	public function initialize($ctx = 'web', $scriptProperties = array())
+	{
 		$this->config = array_merge($this->config, $scriptProperties);
 		if (!$this->pdoTools) {
 			$this->loadPdoTools();
@@ -104,7 +106,8 @@ class currencyrate
 			return true;
 		}
 		switch ($ctx) {
-			case 'mgr': break;
+			case 'mgr':
+				break;
 			default:
 				if (!defined('MODX_API_MODE') || !MODX_API_MODE) {
 					$config = $this->makePlaceholders($this->config);
@@ -157,13 +160,13 @@ class currencyrate
 					'value' => $value,
 				);
 			}
-			if($setting = $this->modx->getObject('modSystemSetting', 'currencyrate_last_date')) {
+			if ($setting = $this->modx->getObject('modSystemSetting', 'currencyrate_last_date')) {
 				$setting->set('value', date('Y-m-d H:i:s'));
 				$setting->save();
 			}
 			return true;
-		} else
-			return false;
+		}
+		return false;
 	}
 
 	/**
@@ -173,7 +176,7 @@ class currencyrate
 	{
 		if ($this->loadRate()) {
 			// add RUB
-			if(!$itemFromDb = $this->modx->getObject('CRlist', $this->rub)) {
+			if (!$itemFromDb = $this->modx->getObject('CRlist', array('numcode' => $this->rub['numcode']))) {
 				$itemFromDb = $this->modx->newObject('CRlist');
 				$itemFromDb->fromArray(array_merge(
 					$this->rub,
@@ -182,19 +185,22 @@ class currencyrate
 						'value' => 1,
 						'valuerate' => 1,
 						'rank' => 0
-				)));
-				if(!$itemFromDb->save()) $this->modx->log(1, print_r('[CR:Error] save to db for charcode - '.$itemFromDb->get('charcode') , 1));
+					)));
+				if (!$itemFromDb->save()) {
+					$this->modx->log(1, print_r('[CR:Error] save to db for charcode - ' . $itemFromDb->get('charcode'), 1));
+				}
 			}
-			//
-			foreach($this->list as $item) {
-				if(!$itemFromDb = $this->modx->getObject('CRlist', array('numcode' => $item['numcode']))) {
+			foreach ($this->list as $item) {
+				if (!$itemFromDb = $this->modx->getObject('CRlist', array('numcode' => $item['numcode']))) {
 					$itemFromDb = $this->modx->newObject('CRlist');
 					$itemFromDb->set('rank', $this->modx->getCount('CRlist'));
 				}
 				$item['rate'] = $itemFromDb->get('rate');
 				$item = $this->calcData($item);
 				$itemFromDb->fromArray($item);
-				if(!$itemFromDb->save()) $this->modx->log(1, print_r('[CR:Error] save to db for charcode - '.$item['charcode'] , 1));
+				if (!$itemFromDb->save()) {
+					$this->modx->log(1, print_r('[CR:Error] save to db for charcode - ' . $item['charcode'], 1));
+				}
 			}
 			$this->cleanCache();
 			return true;
@@ -207,14 +213,22 @@ class currencyrate
 	 * @param array $data
 	 * @return array
 	 */
-	public function calcData($data = array()) {
-		if(empty($data['nominal'])) $data['nominal'] = 1;
+	public function calcData($data = array())
+	{
+		if (empty($data['nominal'])) {
+			$data['nominal'] = 1;
+		}
 		$data['valuerate'] = round(($data['value'] / $data['nominal']), 4);
 		$valuerate = $this->calcValueRate($data['valuerate'], $data['rate']);
 		if ((float)$valuerate == (float)$data['valuerate']) {
 			$data['rate'] = '';
 		}
 		$data['valuerate'] = $valuerate;
+		$data['charcode'] = strtoupper($data['charcode']);
+		if ($data['rate'] == '') {
+			$data['rate'] = 0;
+		}
+
 		return $data;
 	}
 
@@ -223,7 +237,8 @@ class currencyrate
 	 * @param $rate
 	 * @return float
 	 */
-	public function calcValueRate($value, $rate) {
+	public function calcValueRate($value, $rate)
+	{
 		if (preg_match('/%$/', $rate)) {
 			$rate = str_replace('%', '', $rate);
 			$rate = $value / 100 * $rate;
@@ -332,7 +347,8 @@ class currencyrate
 	 * Grab settings (from cache if possible) as key => value pairs.
 	 * @return array|mixed
 	 */
-	public function getList() {
+	public function getList()
+	{
 		/* Attempt to get from cache */
 		$cacheOptions = array(xPDO::OPT_CACHE_KEY => 'crlist');
 		$list = $this->modx->getCacheManager()->get('crlist', $cacheOptions);
@@ -357,7 +373,8 @@ class currencyrate
 	 * @param bool $no_zeros
 	 * @return mixed|string
 	 */
-	public function formatPrice($price = '0', $format = '[2, ".", " "]', $no_zeros = true) {
+	public function formatPrice($price = '0', $format = '[2, ".", " "]', $no_zeros = true)
+	{
 		$pf = $this->modx->fromJSON($format);
 		if (is_array($pf)) {
 			$price = number_format($price, $pf[0], $pf[1], $pf[2]);

@@ -1,12 +1,25 @@
 <?php
 
-require_once MODX_CORE_PATH.'model/modx/modprocessor.class.php';
-class CRUpdateFromGridProcessor extends modObjectUpdateProcessor {
-	public $objectType = 'CRlist';
-	public $classKey = 'CRlist';
-	public $permission = '';
+require_once(dirname(__FILE__) . '/update.class.php');
 
-	public function initialize() {
+/**
+ * Update FromGrid a CRlist
+ */
+class modCRlistFromGridProcessor extends modCRlistUpdateProcessor
+{
+	public $classKey = 'CRlist';
+
+	/** {@inheritDoc} */
+	public static function getInstance(modX &$modx, $className, $properties = array())
+	{
+		/** @var modProcessor $processor */
+		$processor = new modCRlistFromGridProcessor($modx, $properties);
+		return $processor;
+	}
+
+	/** {@inheritDoc} */
+	public function initialize()
+	{
 		$data = $this->getProperty('data');
 		if (empty($data)) {
 			return $this->modx->lexicon('invalid_data');
@@ -15,12 +28,10 @@ class CRUpdateFromGridProcessor extends modObjectUpdateProcessor {
 		if (empty($data)) {
 			return $this->modx->lexicon('invalid_data');
 		}
-		$data = $this->modx->currencyrate->calcData($data);
-		$this->modx->currencyrate->cleanCache();
 		$this->setProperties($data);
 		$this->unsetProperty('data');
 		return parent::initialize();
 	}
-
 }
-return 'CRUpdateFromGridProcessor';
+
+return 'modCRlistFromGridProcessor';

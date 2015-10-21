@@ -63,7 +63,7 @@ currencyrate.grid.List = function(config) {
         },
         save_action: 'mgr/valute/updatefromgrid',
         autosave: true,
-        save_callback: this.updateRow,
+        save_callback: this._updateRow,
 
         paging: true,
         remoteSort: true,
@@ -81,7 +81,7 @@ currencyrate.grid.List = function(config) {
     });
     currencyrate.grid.List.superclass.constructor.call(this, config);
 
-    // Clear selection on grid refresh
+    /* Clear selection on grid refresh */
     this.store.on('load', function() {
         if (this._getSelectedIds().length) {
             this.getSelectionModel().clearSelections();
@@ -89,86 +89,185 @@ currencyrate.grid.List = function(config) {
     }, this);
 };
 Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
+
     windows: {},
 
-    getMenu: function(grid, rowIndex) {
-        var ids = this._getSelectedIds();
+    getFields: function(config) {
+        return ['id', 'numcode', 'charcode', 'name', 'value', 'nominal', 'rate', 'valuerate', 'active', 'actions'];
+    },
 
+    getTopBar: function(config) {
+        var tbar = [];
+
+        tbar.push({
+            text: '<i class="icon icon-cogs"></i> ',
+            menu: [{
+                text: '<i class="icon icon-plus"></i> ' + _('currencyrate_create'),
+                cls: 'currencyrate-cogs',
+                handler: this.create,
+                scope: this
+            },'-',{
+                text: '<i class="icon icon-refresh"></i> ' + _('currencyrate_index_create'),
+                cls: 'currencyrate-cogs',
+                handler: this.indexCreate,
+                scope: this
+            }, {
+                text: '<i class="icon icon-trash-o"></i> ' + _('currencyrate_index_clear'),
+                cls: 'currencyrate-cogs',
+                handler: this.indexClear,
+                scope: this
+            }]
+        });
+
+        if (1 == MODx.config.currencyrate_button_prices_update) {
+            tbar.push({
+                text: '<i class="icon icon-refresh"></i> ' + _('currencyrate_prices_update'),
+                handler: this.updatePrices,
+                scope: this
+            });
+        }
+
+        return tbar;
+    },
+
+    getMenu: function (grid, rowIndex) {
+        var ids = this._getSelectedIds();
         var row = grid.getStore().getAt(rowIndex);
         var menu = currencyrate.utils.getMenu(row.data['actions'], this, ids);
-
         this.addContextMenuItem(menu);
     },
-    getFields: function(config) {
-        return ['id', 'charcode', 'name', 'value', 'nominal', 'rate', 'valuerate', 'active'];
-    },
-    getColumns: function(config) {
-        return [{
-            header: _('cr_valute_id'),
-            dataIndex: 'id',
-            sortable: true,
-            width: 50
-        }, {
-            header: _('cr_valute_charcode'),
-            dataIndex: 'charcode',
-            sortable: true,
-            width: 100,
-        }, {
-            header: _('cr_valute_name'),
-            dataIndex: 'name',
-            sortable: false,
-            width: 250,
-        }, {
-            header: _('cr_valute_value'),
-            dataIndex: 'value',
-            sortable: true,
-            width: 150,
-        }, {
-            header: _('cr_valute_nominal'),
-            dataIndex: 'nominal',
-            sortable: true,
-            width: 100,
-        }, {
-            header: _('cr_valute_rate'),
-            dataIndex: 'rate',
-            sortable: true,
-            width: 100,
-            editor: {
-                xtype: 'textfield'
+
+    onClick: function (e) {
+        var elem = e.getTarget();
+        if (elem.nodeName == 'BUTTON') {
+            var row = this.getSelectionModel().getSelected();
+            if (typeof(row) != 'undefined') {
+                var action = elem.getAttribute('action');
+                if (action == 'showMenu') {
+                    var ri = this.getStore().find('id', row.id);
+                    return this._showMenu(this, ri, e);
+                } else if (typeof this[action] === 'function') {
+                    this.menu.record = row.data;
+                    return this[action](this, e);
+                }
             }
-        }, {
-            header: _('cr_valute_valuerate'),
-            dataIndex: 'valuerate',
-            sortable: true,
-            width: 100,
-            decimalPrecision: 4
-        }, {
-            header: _('cr_valute_active'),
-            dataIndex: 'active',
-            sortable: true,
-            width: 100,
-            editor: {
-                xtype: 'combo-boolean',
-                renderer: 'boolean'
+        }
+        return this.processEvent('click', e);
+    },
+
+    getColumns: function (config) {
+        var columns = [/*this.exp, this.sm*/];
+        var add = {
+            id: {
+                width: 15,
+                sortable: true
+            },
+            numcode: {
+                width: 20,
+                sortable: true,
+                editor: {
+                    xtype: 'textfield'
+                }
+            },
+            charcode: {
+                width: 20,
+                sortable: true,
+                editor: {
+                    xtype: 'textfield'
+                }
+            },
+            name: {
+                width: 50,
+                sortable: true,
+                editor: {
+                    xtype: 'textfield'
+                }
+            },
+            value: {
+                width: 20,
+                sortable: true
+            },
+            nominal: {
+                width: 20,
+                sortable: true
+            },
+            rate: {
+                width: 20,
+                sortable: true,
+                editor: {
+                    xtype: 'textfield'
+                }
+            },
+            valuerate: {
+                width: 20,
+                sortable: true,
+                decimalPrecision: 4
+            },
+            actions: {
+                width: 20,
+                sortable: false,
+                renderer: currencyrate.utils.renderActions,
+                id: 'actions'
             }
-        }];
+        };
+
+        for (var field in add) {
+            if (add[field]) {
+                Ext.applyIf(add[field], {
+                    header: _('currencyrate_header_' + field),
+                    tooltip: _('currencyrate_tooltip_' + field),
+                    dataIndex: field
+                });
+                columns.push(add[field]);
+            }
+        }
+
+        return columns;
     },
-    getTopBar: function(config) {
-        return [{
-            text: '<i class="' + (MODx.modx23 ? 'icon icon-refresh' : 'fa fa-refresh') + '"></i> ' + _('cr_valute_index_create'),
-            //handler: this.indexCreate(),
-            handler: function() {
-                this.indexCreate();
+
+    setAction: function(method, field, value) {
+        var ids = this._getSelectedIds();
+        if (!ids.length && (field !== 'false')) {
+            return false;
+        }
+        MODx.Ajax.request({
+            url: currencyrate.config.connector_url,
+            params: {
+                action: 'mgr/valute/multiple',
+                method: method,
+                field_name: field,
+                field_value: value,
+                ids: Ext.util.JSON.encode(ids)
             },
-            scope: this
-        }, '-', {
-            text: '<i class="' + (MODx.modx23 ? 'icon icon-trash-o' : 'fa fa-trash-o') + '"></i> ' + _('cr_valute_index_clear'),
-            handler: function() {
-                this.indexClear();
-            },
-            scope: this
-        }];
+            listeners: {
+                success: {
+                    fn: function() {
+                        this.refresh();
+                    },
+                    scope: this
+                },
+                failure: {
+                    fn: function(response) {
+                        MODx.msg.alert(_('error'), response.message);
+                    },
+                    scope: this
+                }
+            }
+        })
     },
+
+    active: function(btn, e) {
+        this.setAction('setproperty', 'active', 1);
+    },
+
+    inactive: function(btn, e) {
+        this.setAction('setproperty', 'active', 0);
+    },
+
+    updatePrices: function (btn, e) {
+        this.setAction('updateprices', 'false', 0);
+    },
+
     indexCreate: function() {
         var el = this.getEl();
         el.mask(_('loading'), 'x-mask-loading');
@@ -188,10 +287,11 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
             }
         })
     },
+
     indexClear: function(btn, e) {
         MODx.msg.confirm({
-            title: _('cr_index_remove_all'),
-            text: _('cr_index_remove_all_confirm'),
+            title: _('currencyrate_index_remove_all'),
+            text: _('currencyrate_index_remove_all_confirm'),
             url: this.config.url,
             params: {
                 action: 'mgr/index/clear'
@@ -206,6 +306,74 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
             }
         });
     },
+
+    remove: function() {
+        Ext.MessageBox.confirm(
+            _('currencyrate_action_remove'),
+            _('currencyrate_confirm_remove'),
+            function(val) {
+                if (val == 'yes') {
+                    this.setAction('remove');
+                }
+            },
+            this
+        );
+    },
+
+    create: function (btn, e) {
+        var record = {
+            active: 1
+        };
+        var w = MODx.load({
+            xtype: 'currencyrate-valute-window-create',
+            class: this.config.class,
+            listeners: {
+                success: {
+                    fn: function () {
+                        this.refresh();
+                    }, scope: this
+                }
+            }
+        });
+        w.reset();
+        w.setValues(record);
+        w.show(e.target);
+    },
+
+    update: function(btn, e, row) {
+        var record = typeof(row) != 'undefined' ? row.data : this.menu.record;
+        MODx.Ajax.request({
+            url: currencyrate.config.connector_url,
+            params: {
+                action: 'mgr/valute/get',
+                id: record.id
+            },
+            listeners: {
+                success: {
+                    fn: function(r) {
+                        var record = r.object;
+                        var w = MODx.load({
+                            xtype: 'currencyrate-valute-window-create',
+                            title: _('currencyrate_action_update'),
+                            action: 'mgr/valute/update',
+                            record: record,
+                            listeners: {
+                                success: {
+                                    fn: this.refresh,
+                                    scope: this
+                                }
+                            }
+                        });
+                        w.reset();
+                        w.setValues(record);
+                        w.show(e.target);
+                    },
+                    scope: this
+                }
+            }
+        });
+    },
+
     _getSelectedIds: function() {
         var ids = [];
         var selected = this.getSelectionModel().getSelections();
@@ -218,16 +386,9 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
         }
         return ids;
     },
-    updateRow: function(response) {
-        var row = response.object;
-        var items = this.store.data.items;
 
-        for (var i = 0; i < items.length; i++) {
-            var item = items[i];
-            if (item.id == row.id) {
-                item.data = row;
-            }
-        }
+    _updateRow: function (response) {
+        this.refresh();
     }
 
 });

@@ -1,5 +1,11 @@
 Changelog for currencyrate.
 
+1.0.5
+==============
+- small refactoring
+- add create window
+- add update window
+
 1.0.4
 ==============
 - add active, rank for currency

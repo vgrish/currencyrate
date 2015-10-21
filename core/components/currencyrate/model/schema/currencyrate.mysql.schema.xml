@@ -4,11 +4,11 @@
 
 	<object class="CRlist" table="currency_rate_list" extends="xPDOSimpleObject">
         <field key="numcode" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0" />
-        <field key="charcode" dbtype="varchar" precision="3" phptype="varchar" null="true" />
+        <field key="charcode" dbtype="varchar" precision="3" phptype="varchar" null="true" default="" />
         <field key="nominal" dbtype="int" precision="10" attributes="unsigned" phptype="integer" null="true" default="0" />
-        <field key="name" dbtype="varchar" precision="100" phptype="varchar" null="true" />
+        <field key="name" dbtype="varchar" precision="100" phptype="varchar" null="true" default="" />
         <field key="value" dbtype="decimal" precision="12,4" phptype="float" null="true" default="0" />
-        <field key="rate" dbtype="varchar" precision="100" phptype="varchar" null="true" />
+        <field key="rate" dbtype="varchar" precision="100" phptype="varchar" null="true" default="0" />
         <field key="valuerate" dbtype="decimal" precision="12,4" phptype="float" null="true" default="0" />
         <field key="active" dbtype="tinyint" precision="1" phptype="integer" null="true" default="0" />
         <field key="rank" dbtype="tinyint" precision="1" phptype="integer" attributes="unsigned" null="true" default="0" />

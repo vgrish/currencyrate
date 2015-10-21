@@ -1,12 +1,13 @@
 currencyrate.utils.renderBoolean = function(value, props, row) {
 
     return value ? String.format('<span class="green">{0}</span>', _('yes')) : String.format('<span class="red">{0}</span>', _('no'));
-}
+};
 
-currencyrate.utils.getMenu = function(actions, grid, selected) {
+currencyrate.utils.getMenu = function (actions, grid, selected) {
     var menu = [];
     var cls, icon, title, action = '';
 
+    var has_delete = false;
     for (var i in actions) {
         if (!actions.hasOwnProperty(i)) {
             continue;
@@ -18,8 +19,9 @@ currencyrate.utils.getMenu = function(actions, grid, selected) {
                 menu.push('-');
             }
             continue;
-        } else if (menu.length > 0 && /^remove/i.test(a['action'])) {
+        } else if (menu.length > 0 && (/^sep/i.test(a['action']))) {
             menu.push('-');
+            continue;
         }
 
         if (selected.length > 1) {
@@ -40,15 +42,14 @@ currencyrate.utils.getMenu = function(actions, grid, selected) {
             text: String.format(
                 '<span class="{0}"><i class="x-menu-item-icon {1}"></i>{2}</span>',
                 cls, icon, title
-            ),
+            )
         });
     }
 
     return menu;
 };
 
-
-currencyrate.utils.renderActions = function(value, props, row) {
+currencyrate.utils.renderActions = function (value, props, row) {
     var res = [];
     var cls, icon, title, action, item = '';
     for (var i in row.data.actions) {
@@ -78,3 +79,4 @@ currencyrate.utils.renderActions = function(value, props, row) {
         res.join('')
     );
 };
+
