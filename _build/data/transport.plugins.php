@@ -19,7 +19,7 @@ $tmp = array(
 			//'msOnBeforeAddToCart' => array(),
 		)
 	)
- 
+
 
 );
 
