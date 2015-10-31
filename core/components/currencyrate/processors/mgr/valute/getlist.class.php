@@ -22,7 +22,7 @@ class modCRlistGetListProcessor extends modObjectGetListProcessor
 	{
 		$array = $object->toArray();
 
-		$icon = 'icon';
+		$icon = 'fa';
 		$array['actions'] = array();
 
 		// Edit
