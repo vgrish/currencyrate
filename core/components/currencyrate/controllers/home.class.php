@@ -32,8 +32,6 @@ class currencyrateHomeManagerController extends currencyrateMainController
 	 */
 	public function loadCustomCssJs()
 	{
-		$this->addCss($this->currencyrate->config['cssUrl'] . 'mgr/main.css');
-		$this->addCss($this->currencyrate->config['cssUrl'] . 'mgr/bootstrap.buttons.css');
 		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/misc/utils.js');
 		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/widgets/window.js');
 		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/widgets/list.grid.js');

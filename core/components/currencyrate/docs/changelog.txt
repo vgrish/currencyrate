@@ -1,5 +1,9 @@
 Changelog for currencyrate.
 
+1.0.6
+==============
+- fix lexicon
+
 1.0.5
 ==============
 - small refactoring

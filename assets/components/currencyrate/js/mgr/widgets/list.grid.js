@@ -100,19 +100,19 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
         var tbar = [];
 
         tbar.push({
-            text: '<i class="icon icon-cogs"></i> ',
+            text: '<i class="fa fa-cogs"></i> ',
             menu: [{
-                text: '<i class="icon icon-plus"></i> ' + _('currencyrate_create'),
+                text: '<i class="fa fa-plus"></i> ' + _('currencyrate_create'),
                 cls: 'currencyrate-cogs',
                 handler: this.create,
                 scope: this
             },'-',{
-                text: '<i class="icon icon-refresh"></i> ' + _('currencyrate_index_create'),
+                text: '<i class="fa fa-refresh"></i> ' + _('currencyrate_index_create'),
                 cls: 'currencyrate-cogs',
                 handler: this.indexCreate,
                 scope: this
             }, {
-                text: '<i class="icon icon-trash-o"></i> ' + _('currencyrate_index_clear'),
+                text: '<i class="fa fa-trash-o"></i> ' + _('currencyrate_index_clear'),
                 cls: 'currencyrate-cogs',
                 handler: this.indexClear,
                 scope: this
@@ -121,7 +121,7 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
 
         if (1 == MODx.config.currencyrate_button_prices_update) {
             tbar.push({
-                text: '<i class="icon icon-refresh"></i> ' + _('currencyrate_prices_update'),
+                text: '<i class="fa fa-refresh"></i> ' + _('currencyrate_prices_update'),
                 handler: this.updatePrices,
                 scope: this
             });
@@ -241,8 +241,11 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
             },
             listeners: {
                 success: {
-                    fn: function() {
+                    fn: function(response) {
                         this.refresh();
+                        if (response.message != '') {
+                            MODx.msg.alert(_('info'),response.message);
+                        }
                     },
                     scope: this
                 },
