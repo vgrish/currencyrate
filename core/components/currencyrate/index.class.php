@@ -19,7 +19,7 @@ abstract class currencyrateMainController extends modExtraManagerController {
 
 		$this->addCss($this->currencyrate->config['cssUrl'] . 'mgr/main.css');
 		$this->addCss($this->currencyrate->config['cssUrl'] . 'mgr/bootstrap.buttons.css');
-		$this->addCss($this->currencyrate->config['assetsUrl'] . 'css/mgr/font-awesome.min.css');
+		$this->addCss($this->currencyrate->config['assetsUrl'] . 'vendor/fontawesome/css/font-awesome.min.css');
 		$this->addJavascript($this->currencyrate->config['jsUrl'] . 'mgr/currencyrate.js');
 
 		$this->addHtml('

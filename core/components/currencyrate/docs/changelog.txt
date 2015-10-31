@@ -3,6 +3,7 @@ Changelog for currencyrate.
 1.0.6
 ==============
 - fix lexicon
+- font-awesome
 
 1.0.5
 ==============
