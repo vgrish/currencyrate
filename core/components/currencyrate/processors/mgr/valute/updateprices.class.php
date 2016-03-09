@@ -14,7 +14,7 @@ class modCRlistsUpdatePricesProcessor extends modProcessor
 	public function process()
 	{
 
-		//return $this->success('');
+		return $this->success('');
 
 		/** @var currencyrate $currencyrate */
 		if (!$currencyrate = $this->modx->getService('currencyrate', 'currencyrate', $this->modx->getOption('currencyrate_core_path', null, $this->modx->getOption('core_path') . 'components/currencyrate/') . 'model/currencyrate/', array())) {
