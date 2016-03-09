@@ -78,3 +78,13 @@ ul.currencyrate-row-actions .actions-menu:after {content: " \f107";}
 	padding-right: 3px;
 	width: 15px;
 }
+
+
+/* currencyrate-active field */
+.x-field-currencyrate-active-clear,
+.x-field-currencyrate-active-go {border-left: 1px solid #e4e4e4 !important;}
+.x-field-currencyrate-active-clear:hover,
+.x-field-currencyrate-active-go:hover {border-left-color: transparent !important;}
+.x-field-currencyrate-active-clear:before {content: '\f00d' !important;}
+.x-field-currencyrate-active-go {right: 31px !important; border-radius: 0 !important;}
+.x-field-currencyrate-active-go:before {content: '\f204' !important;}

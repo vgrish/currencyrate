@@ -1,5 +1,9 @@
 Changelog for currencyrate.
 
+1.0.7 (09.03.2016)
+==============
+- Add active combo
+
 1.0.6
 ==============
 - fix lexicon

@@ -127,6 +127,25 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
             });
         }
 
+        tbar.push('->',{
+            xtype: 'currencyrate-combo-active',
+            width: 210,
+            custm: true,
+            clear: true,
+            addall: true,
+            value: 1,
+            listeners: {
+                select: {
+                    fn: this._filterByCombo,
+                    scope: this
+                },
+                afterrender: {
+                    fn: this._filterByCombo,
+                    scope: this
+                }
+            }
+        });
+
         return tbar;
     },
 
@@ -392,7 +411,12 @@ Ext.extend(currencyrate.grid.List, MODx.grid.Grid, {
 
     _updateRow: function (response) {
         this.refresh();
-    }
+    },
+
+    _filterByCombo: function (cb) {
+        this.getStore().baseParams[cb.name] = cb.value;
+        this.getBottomToolbar().changePage(1);
+    },
 
 });
 Ext.reg('currencyrate-grid-list', currencyrate.grid.List);

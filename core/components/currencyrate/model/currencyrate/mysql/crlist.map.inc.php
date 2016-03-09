@@ -7,11 +7,11 @@ $xpdo_meta_map['CRlist']= array (
   'fields' => 
   array (
     'numcode' => 0,
-    'charcode' => NULL,
+    'charcode' => '',
     'nominal' => 0,
-    'name' => NULL,
+    'name' => '',
     'value' => 0,
-    'rate' => NULL,
+    'rate' => '0',
     'valuerate' => 0,
     'active' => 0,
     'rank' => 0,
@@ -33,6 +33,7 @@ $xpdo_meta_map['CRlist']= array (
       'precision' => '3',
       'phptype' => 'varchar',
       'null' => true,
+      'default' => '',
     ),
     'nominal' => 
     array (
@@ -49,6 +50,7 @@ $xpdo_meta_map['CRlist']= array (
       'precision' => '100',
       'phptype' => 'varchar',
       'null' => true,
+      'default' => '',
     ),
     'value' => 
     array (
@@ -64,6 +66,7 @@ $xpdo_meta_map['CRlist']= array (
       'precision' => '100',
       'phptype' => 'varchar',
       'null' => true,
+      'default' => '0',
     ),
     'valuerate' => 
     array (

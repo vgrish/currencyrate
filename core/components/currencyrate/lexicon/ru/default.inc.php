@@ -34,6 +34,9 @@ $_lang['currencyrate_nominal'] = 'Номинал';
 $_lang['currencyrate_rate'] = 'Коэф-т';
 $_lang['currencyrate_valuerate'] = 'Значение';
 $_lang['currencyrate_active'] = 'Включен';
+$_lang['currencyrate_inactive'] = 'Выключен';
+$_lang['currencyrate_all'] = 'Все';
+
 
 // action
 $_lang['currencyrate_action_update'] = 'Обновить';
