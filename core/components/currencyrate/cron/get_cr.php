@@ -12,7 +12,10 @@ $modx->setLogLevel(modX::LOG_LEVEL_ERROR);
 $modx->setLogTarget('FILE');
 $modx->error->message = null;
 
-$currencyrate = $modx->getService('currencyrate', 'currencyrate', $modx->getOption('currencyrate_core_path', null, $modx->getOption('core_path') . 'components/currencyrate/') . 'model/currencyrate/');
-if (!($currencyrate instanceof currencyrate)) return '';
+$currencyrate = $modx->getService('currencyrate', 'currencyrate', $modx->getOption('currencyrate_core_path', null,
+        $modx->getOption('core_path') . 'components/currencyrate/') . 'model/currencyrate/');
+if (!($currencyrate instanceof currencyrate)) {
+    return '';
+}
 
 $currencyrate->rateIntoDb();

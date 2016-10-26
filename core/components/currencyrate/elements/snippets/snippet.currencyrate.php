@@ -1,8 +1,10 @@
 <?php
 /** @var array $scriptProperties */
 /** @var currencyrate $currencyrate */
-if (!$currencyrate = $modx->getService('currencyrate', 'currencyrate', $modx->getOption('currencyrate_core_path', null, $modx->getOption('core_path') . 'components/currencyrate/') . 'model/currencyrate/', $scriptProperties)) {
-	return 'Could not load currencyrate class!';
+if (!$currencyrate = $modx->getService('currencyrate', 'currencyrate', $modx->getOption('currencyrate_core_path', null,
+        $modx->getOption('core_path') . 'components/currencyrate/') . 'model/currencyrate/', $scriptProperties)
+) {
+    return 'Could not load currencyrate class!';
 }
 
 // Do your snippet code here. This demo grabs 5 items from our custom table.
@@ -23,16 +25,16 @@ $items = $modx->getIterator('currencyrateItem', $c);
 $list = array();
 /** @var currencyrateItem $item */
 foreach ($items as $item) {
-	$list[] = $modx->getChunk($tpl, $item->toArray());
+    $list[] = $modx->getChunk($tpl, $item->toArray());
 }
 
 // Output
 $output = implode($outputSeparator, $list);
 if (!empty($toPlaceholder)) {
-	// If using a placeholder, output nothing and set output to specified placeholder
-	$modx->setPlaceholder($toPlaceholder, $output);
+    // If using a placeholder, output nothing and set output to specified placeholder
+    $modx->setPlaceholder($toPlaceholder, $output);
 
-	return '';
+    return '';
 }
 // By default just return output
 return $output;

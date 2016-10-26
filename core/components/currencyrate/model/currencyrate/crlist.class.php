@@ -1,2 +1,5 @@
 <?php
-class CRlist extends xPDOSimpleObject {}
+
+class CRlist extends xPDOSimpleObject
+{
+}
